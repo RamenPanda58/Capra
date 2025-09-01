@@ -35,6 +35,7 @@ public class WoodcuttingTask : TaskBase
         {
             Debug.Log("You have collected enough wood!");
             taskDone = true;
+            CompleteTask();
         }
     }
 
