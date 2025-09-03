@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class Villager : MonoBehaviour, IInteractable
+public class Villager : Interactable
 {
     [SerializeField] private TaskBase taskToGive;
     [SerializeField] private string itemToGive;
 
-    public void Interact()
+    public override void Interact()
     {
         Debug.Log("Talking to villager...");
         FindFirstObjectByType<TaskManager>().StartTask(taskToGive);

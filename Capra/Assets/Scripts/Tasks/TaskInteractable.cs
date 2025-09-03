@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TaskInteractable : MonoBehaviour, IInteractable
+public class TaskInteractable : Interactable
 {
     [Header("Optional Settings")]
     [Tooltip("Should this object be destroyed when interacted with?")]
@@ -13,7 +13,7 @@ public class TaskInteractable : MonoBehaviour, IInteractable
         taskManager = FindFirstObjectByType<TaskManager>();
     }
 
-    public void Interact()
+    public override void Interact()
     {
         if (taskManager.TryPerformTask()) 
         {

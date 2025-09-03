@@ -1,25 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInteract : MonoBehaviour
+public class PlayerInteractor : MonoBehaviour
 {
-    [SerializeField] private float interactRange = 3f;
-    [SerializeField] private LayerMask interactableLayer;
+    private Interactable currentTarget;
 
-    private void Update()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-            TryInteract();
+        if (Input.GetKeyDown(KeyCode.E) && currentTarget != null)
+        {
+            currentTarget.Interact();
+        }
     }
 
-    private void TryInteract()
+    private void OnTriggerEnter(Collider other)
     {
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactableLayer))
+        if (other.TryGetComponent(out Interactable interactable))
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-            if (interactable != null)
-                interactable.Interact();
+            currentTarget = interactable;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out Interactable interactable) && interactable == currentTarget)
+        {
+            currentTarget = null;
         }
     }
 }
