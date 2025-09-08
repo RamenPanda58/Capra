@@ -7,17 +7,16 @@ public class WoodcuttingTask : TaskBase
     [SerializeField] private string woodItemName = "Wood"; // Item name to give player
     [SerializeField] private string toolRequired = "Axe";  // Required item to perform task
 
-    private bool taskDone = false;
-
     public override void StartTask()
     {
         Debug.Log($"Go to {TargetLocationName} with an {toolRequired}.");
-        taskDone = false;
+        PlayerInventory.Instance.AddItem("Axe");
+        IsComplete = false;
     }
 
     public override void PerformTask()
     {
-        if (taskDone) return;
+        if (IsComplete) return;
         string heldItem = PlayerInventory.Instance.GetHeldItem();
 
         if (heldItem != toolRequired)
@@ -34,19 +33,14 @@ public class WoodcuttingTask : TaskBase
         if (currentWood >= woodRequired)
         {
             Debug.Log("You have collected enough wood!");
-            taskDone = true;
+            IsComplete = true;
             CompleteTask();
         }
     }
 
     public override void CompleteTask()
     {
-        if (!taskDone)
-        {
-            Debug.Log("You haven't completed the woodcutting yet.");
-            return;
-        }
-
+        WorldProgression.Instance.ApplyReward("WoodCuttingFinished");
         Debug.Log("Woodcutting task completed!");
     }
 

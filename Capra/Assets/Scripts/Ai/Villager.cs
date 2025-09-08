@@ -1,18 +1,39 @@
+﻿using HeneGames.DialogueSystem;
 using UnityEngine;
 
-public class Villager : Interactable
+public class Villager : MonoBehaviour, IInteractable
 {
-    [SerializeField] private TaskBase taskToGive;
-    [SerializeField] private string itemToGive;
+    [SerializeField] private TaskBase assignedTask;
+    [SerializeField] private string rewardItemName = "Coin"; // Example reward
+    [SerializeField] private int rewardAmount = 1;
 
-    public override void Interact()
+    private TaskManager taskManager;
+    private DialogueManager dialogueManager;
+
+    private void Start()
     {
-        Debug.Log("Talking to villager...");
-        FindFirstObjectByType<TaskManager>().StartTask(taskToGive);
-        if (itemToGive != null) 
+        taskManager = FindFirstObjectByType<TaskManager>();
+        dialogueManager = GetComponentInChildren<DialogueManager>();
+    }
+
+    public void Interact()
+    {
+        // If player hasn’t started the task yet
+        if (taskManager.currentTask == null && assignedTask != null)
         {
-            Debug.Log("Villager gave " +itemToGive+ " to the player.");
-            PlayerInventory.Instance.AddItem(itemToGive);
+            taskManager.StartTask(assignedTask);
+            assignedTask.StartTask();
+            return;
+        }
+
+        // If task is complete
+        if (assignedTask != null && assignedTask.IsComplete)
+        {
+            PlayerInventory.Instance.AddItem(rewardItemName, rewardAmount);
+
+            WorldProgression.Instance.ApplyReward(rewardItemName);
+
+            taskManager.currentTask = null;
         }
     }
 }

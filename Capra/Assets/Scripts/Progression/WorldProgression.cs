@@ -4,6 +4,9 @@ public class WorldProgression : MonoBehaviour
 {
     public static WorldProgression Instance { get; private set; }
 
+    public GameObject wizard1;
+    public GameObject wizard2;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,11 +22,12 @@ public class WorldProgression : MonoBehaviour
     {
         switch (rewardCode)
         {
-            case "WoodTaskComplete":
-                Debug.Log("World changes: colors brighter!");
+            case "WoodCuttingFinished":
+                wizard1.SetActive(false);
+                wizard2.SetActive(true);
                 break;
 
-            case "FenceTaskComplete":
+            case "Coin":
                 Debug.Log("World changes: fence fixed!");
                 break;
 

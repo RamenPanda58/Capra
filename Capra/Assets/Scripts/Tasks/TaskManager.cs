@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TaskManager : MonoBehaviour
 {
-    private TaskBase currentTask;
+    public TaskBase currentTask;
 
     public void StartTask(TaskBase task)
     {

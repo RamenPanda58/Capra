@@ -11,6 +11,8 @@ public abstract class TaskBase : ScriptableObject, ITask
     public string RequiredItem => requiredItem;
     public string RewardCode => rewardCode;
     public string TargetLocationName => targetLocationName;
+    public bool IsComplete;
+    bool ITask.IsComplete { get => IsComplete; set => IsComplete = value; }
 
     public abstract void StartTask();
     public abstract void PerformTask();
