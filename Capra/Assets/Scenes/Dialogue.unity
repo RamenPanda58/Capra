@@ -967,8 +967,32 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
       propertyPath: sentences.Array.data[0].sentence
-      value: cut wood
+      value: Could you cut some wood for me?
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
+      propertyPath: sentences.Array.data[1].sentence
+      value: That could really help me out.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
+      propertyPath: sentences.Array.data[2].sentence
+      value: On you go.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
+      propertyPath: sentences.Array.data[0].sentenceSound
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
+      propertyPath: sentences.Array.data[1].sentenceSound
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
+      propertyPath: sentences.Array.data[2].sentenceSound
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
       propertyPath: startDialogueEvent.m_PersistentCalls.m_Calls.Array.size
@@ -1380,15 +1404,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
       propertyPath: sentences.Array.data[0].sentence
-      value: Other text
+      value: Thank you for cutting the wood~!
       objectReference: {fileID: 0}
     - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
       propertyPath: sentences.Array.data[1].sentence
-      value: other text again
+      value: Now I can finish building my fence.
       objectReference: {fileID: 0}
     - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
       propertyPath: sentences.Array.data[2].sentence
-      value: Other text last time
+      value: Look aroud the village. I am sure there are more people in need of help.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
+      propertyPath: sentences.Array.data[0].sentenceSound
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
+      propertyPath: sentences.Array.data[1].sentenceSound
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
+      propertyPath: sentences.Array.data[2].sentenceSound
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7603848103017532228, guid: 8e9f9ec3ddd244846ad2994a83fb38f8, type: 3}
       propertyPath: startDialogueEvent.m_PersistentCalls.m_Calls.Array.size
