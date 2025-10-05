@@ -1,15 +1,7 @@
-using TMPro;
 using UnityEngine;
 
-public class WorldProgression : MonoBehaviour
+public class StoryLine : MonoBehaviour
 {
-    public static WorldProgression Instance { get; private set; }
-
-    //   public GameObject wizard1;
-    //   public GameObject wizard2;
-    public GameObject ItemReward;
-
-
     public GameObject CutSceneBackground;
     public GameObject WorldChangeCutScene; // this is a cutscene for when you do a good deed and the world changes
     public GameObject AudioWorldChange;
@@ -25,32 +17,15 @@ public class WorldProgression : MonoBehaviour
     public GameObject AudioPart5;
 
 
-
-    private void Awake()
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        
     }
 
-    // Apply world changes based on a reward code
-    public void ApplyReward(string rewardCode)
+    // Update is called once per frame
+    void Update()
     {
-        switch (rewardCode)
-        {
-            case "WoodCuttingFinished":
-               // wizard1.SetActive(false);
-               // wizard2.SetActive(true);
-                break;
-
-            case "Coin":
-                // Debug.Log("World changes: fence fixed!");
-                ItemReward.SetActive(true);
-                break;
-             
-        }
+        
     }
 }

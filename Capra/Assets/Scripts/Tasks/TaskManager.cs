@@ -1,14 +1,17 @@
+using TMPro;
 using UnityEngine;
 
 public class TaskManager : MonoBehaviour
 {
     public TaskBase currentTask;
+    public TextMeshProUGUI CurrentQuest;
 
     public void StartTask(TaskBase task)
     {
         currentTask = task;
         currentTask.StartTask();
         Debug.Log("Task started: " + (currentTask).TaskName);
+        CurrentQuest.text = "You might want to " + (currentTask).TaskName;
     }
 
     public bool TryPerformTask()
