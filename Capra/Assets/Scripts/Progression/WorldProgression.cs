@@ -9,11 +9,11 @@ public class WorldProgression : MonoBehaviour
     //   public GameObject wizard2;
     public GameObject ItemReward;
 
-
+    [Header("CutScene Settings")]
     public GameObject CutSceneBackground;
-    public GameObject WorldChangeCutScene; // this is a cutscene for when you do a good deed and the world changes
+    public TextMeshProUGUI WorldChangeCutScene; // this is a cutscene for when you do a good deed and the world changes
     public GameObject AudioWorldChange;
-    public GameObject CutSceneStoryPart1; // this is the starts of the story and you get off a bus
+    public TextMeshProUGUI CutSceneStoryPart1; // this is the starts of the story and you get off a bus
     public GameObject AudioPart1;
     public GameObject CutSceneStoryPart2; // this is Capra's story
     public GameObject AudioPart2;
@@ -23,6 +23,13 @@ public class WorldProgression : MonoBehaviour
     public GameObject AudioPart4;
     public GameObject CutSceneStoryPart5; // End Cutscene where capra comes back and leaves happy, knowing there will be a next year
     public GameObject AudioPart5;
+
+    [Header("Player Settings")]
+    public MonoBehaviour playerMovement; // drag your player movement script here
+    public float introDuration = 5f;     // how long the intro lasts
+    private bool introPlayed = false;
+    private bool WorldChangedPlayed = false;
+    public float fadeSpeed = 3f; // smaller = slower fade
 
 
 
@@ -34,6 +41,92 @@ public class WorldProgression : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        PlayIntroCutscene();
+    }
+
+    // ==========================
+    // INTRO CUTSCENE LOGIC
+    // ==========================
+    private void PlayIntroCutscene()
+    {
+        if (introPlayed) return;
+        introPlayed = true;
+
+        // Disable player movement during intro
+        if (playerMovement != null)
+            playerMovement.enabled = false;
+
+        // Show backrgound cutscene UI
+        if (CutSceneBackground != null)
+            CutSceneBackground.SetActive(true);
+
+        // Show story cutscene UI
+        if (CutSceneStoryPart1 != null)
+            CutSceneStoryPart1.gameObject.SetActive(true);
+
+        // Play intro audio if it exists
+        if (AudioPart1 != null)
+            AudioPart1.SetActive(true);
+
+        // Automatically end after a few seconds
+        // Invoke(nameof(EndIntroCutscene), introDuration);
+
+        StartCoroutine(FadeTextRoutine());
+        
+    }
+
+    private System.Collections.IEnumerator FadeTextRoutine()
+    {
+        Color c = CutSceneStoryPart1.color;
+        c.a = 0;
+        CutSceneStoryPart1.color = c;
+
+        // Fade in
+        while (c.a < 1f)
+        {
+            c.a += Time.deltaTime * fadeSpeed;
+            CutSceneStoryPart1.color = c;
+            yield return null;
+        }
+
+        // Wait while visible
+        yield return new WaitForSeconds(introDuration - 2f);
+
+        // Fade out
+        while (c.a > 0f)
+        {
+            c.a -= Time.deltaTime * fadeSpeed;
+            CutSceneStoryPart1.color = c;
+            yield return null;
+        }
+
+        EndCutscene();
+    }
+
+    private void EndCutscene()
+    {
+        // Hide cutscene and audio
+
+        // Show backrgound cutscene UI
+        if (CutSceneBackground != null)
+            CutSceneBackground.SetActive(false);
+
+        if (CutSceneStoryPart1 != null)
+            CutSceneStoryPart1.gameObject.SetActive(false);
+
+        if (AudioPart1 != null)
+            AudioPart1.SetActive(false);
+
+        if (WorldChangeCutScene != null)
+            WorldChangeCutScene.gameObject.SetActive(false);
+
+        // Enable player movement
+        if (playerMovement != null)
+            playerMovement.enabled = true;
     }
 
     // Apply world changes based on a reward code
@@ -49,8 +142,38 @@ public class WorldProgression : MonoBehaviour
             case "Coin":
                 // Debug.Log("World changes: fence fixed!");
                 ItemReward.SetActive(true);
+                PlayWorldChangeCutScene();
                 break;
              
         }
     }
+
+    private void PlayWorldChangeCutScene()
+    {
+        if (WorldChangedPlayed) return;
+        WorldChangedPlayed = true;
+
+        // Disable player movement during intro
+        if (playerMovement != null)
+            playerMovement.enabled = false;
+
+        // Show backrgound cutscene UI
+        if (CutSceneBackground != null)
+            CutSceneBackground.SetActive(true);
+
+        // Show story cutscene UI
+        if (WorldChangeCutScene != null)
+            WorldChangeCutScene.gameObject.SetActive(true);
+
+        // Play intro audio if it exists
+        if (AudioWorldChange != null)
+            AudioWorldChange.SetActive(true);
+
+        // Automatically end after a few seconds
+        // Invoke(nameof(EndIntroCutscene), introDuration);
+
+        StartCoroutine(FadeTextRoutine());
+    }
+
+    
 }
