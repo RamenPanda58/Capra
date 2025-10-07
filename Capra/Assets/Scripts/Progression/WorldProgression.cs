@@ -1,12 +1,13 @@
 using TMPro;
 using UnityEngine;
+using System.Collections;
 
 public class WorldProgression : MonoBehaviour
 {
     public static WorldProgression Instance { get; private set; }
 
-    //   public GameObject wizard1;
-    //   public GameObject wizard2;
+    public GameObject TantiNuti1;
+    public GameObject TantiNuti2;
     public GameObject ItemReward;
 
     [Header("CutScene Settings")]
@@ -23,12 +24,16 @@ public class WorldProgression : MonoBehaviour
     public GameObject AudioPart4;
     public GameObject CutSceneStoryPart5; // End Cutscene where capra comes back and leaves happy, knowing there will be a next year
     public GameObject AudioPart5;
+    public float waitBeforeReward = 5f;
+    public float waitBeforeCutscene = 5f;
 
     [Header("Player Settings")]
     public MonoBehaviour playerMovement; // drag your player movement script here
+    public vThirdPersonCamera vCamera; // drag your camera object here
     public float introDuration = 5f;     // how long the intro lasts
     private bool introPlayed = false;
     private bool WorldChangedPlayed = false;
+    private bool CapraStoryPlayed = false;
     public float fadeSpeed = 3f; // smaller = slower fade
 
 
@@ -59,6 +64,9 @@ public class WorldProgression : MonoBehaviour
         // Disable player movement during intro
         if (playerMovement != null)
             playerMovement.enabled = false;
+
+        if (vCamera != null)
+            vCamera.lockCamera = true; // camera locked, player can’t rotate
 
         // Show backrgound cutscene UI
         if (CutSceneBackground != null)
@@ -118,6 +126,9 @@ public class WorldProgression : MonoBehaviour
         if (CutSceneStoryPart1 != null)
             CutSceneStoryPart1.gameObject.SetActive(false);
 
+        if (CutSceneStoryPart2 != null)
+            CutSceneStoryPart2.gameObject.SetActive(false);
+
         if (AudioPart1 != null)
             AudioPart1.SetActive(false);
 
@@ -127,6 +138,10 @@ public class WorldProgression : MonoBehaviour
         // Enable player movement
         if (playerMovement != null)
             playerMovement.enabled = true;
+
+        if (vCamera != null)
+            vCamera.lockCamera = false; // restore normal camera control
+
     }
 
     // Apply world changes based on a reward code
@@ -135,18 +150,34 @@ public class WorldProgression : MonoBehaviour
         switch (rewardCode)
         {
             case "WoodCuttingFinished":
-               // wizard1.SetActive(false);
-               // wizard2.SetActive(true);
+                TantiNuti1.SetActive(false);
+                TantiNuti2.SetActive(true);
                 break;
 
             case "Coin":
-                // Debug.Log("World changes: fence fixed!");
-                ItemReward.SetActive(true);
-                PlayWorldChangeCutScene();
+                // Start delayed sequence for reward + cutscene
+                StartCoroutine(RewardDelaySequence());
                 break;
-             
         }
     }
+
+    private IEnumerator RewardDelaySequence()
+    {
+        // Wait before showing reward
+        yield return new WaitForSeconds(waitBeforeReward);
+
+        // Show the reward
+        ItemReward.SetActive(true);
+
+        // Wait before world-change cutscene
+        yield return new WaitForSeconds(waitBeforeCutscene);
+
+        // Play world-change cutscene
+        PlayWorldChangeCutScene();
+
+        ItemReward.SetActive(false);
+    }
+
 
     private void PlayWorldChangeCutScene()
     {
@@ -156,6 +187,10 @@ public class WorldProgression : MonoBehaviour
         // Disable player movement during intro
         if (playerMovement != null)
             playerMovement.enabled = false;
+
+        if (vCamera != null)
+            vCamera.lockCamera = true; // camera locked, player can’t rotate
+
 
         // Show backrgound cutscene UI
         if (CutSceneBackground != null)
@@ -175,5 +210,35 @@ public class WorldProgression : MonoBehaviour
         StartCoroutine(FadeTextRoutine());
     }
 
-    
+    public void PlayCapraCutscene()
+    {
+        if (CapraStoryPlayed) return;
+        CapraStoryPlayed = true;
+
+        // Disable player movement
+        if (playerMovement != null)
+            playerMovement.enabled = false;
+
+        // Lock camera if using vThirdPersonCamera
+        if (vCamera != null)
+            vCamera.lockCamera = true;
+
+
+        // Optional: Play audio if assigned
+        if (AudioPart2 != null)
+            AudioPart2.SetActive(true);
+
+        // Show backrgound cutscene UI
+        if (CutSceneBackground != null)
+            CutSceneBackground.SetActive(true);
+
+        // Show story cutscene UI
+        if (CutSceneStoryPart2 != null)
+            CutSceneStoryPart2.gameObject.SetActive(true);
+
+
+        StartCoroutine(FadeTextRoutine());
+    }
+
+
 }
