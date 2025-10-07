@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using System.Security;
 
 public class WorldProgression : MonoBehaviour
 {
@@ -8,7 +9,10 @@ public class WorldProgression : MonoBehaviour
 
     public GameObject TantiNuti1;
     public GameObject TantiNuti2;
-    public GameObject ItemReward;
+    public GameObject TantiMariana1;
+    public GameObject TantiMariana2;
+   // public GameObject ItemReward;
+    public TextMeshProUGUI ItemRewardText;
 
     [Header("CutScene Settings")]
     public GameObject CutSceneBackground;
@@ -87,7 +91,7 @@ public class WorldProgression : MonoBehaviour
         
     }
 
-    private System.Collections.IEnumerator FadeTextRoutine()
+    private IEnumerator FadeTextRoutine()
     {
         Color c = CutSceneStoryPart1.color;
         c.a = 0;
@@ -147,27 +151,68 @@ public class WorldProgression : MonoBehaviour
     // Apply world changes based on a reward code
     public void ApplyReward(string rewardCode)
     {
+        string rewardMessage = "";
+        bool shouldPlayCutscene = false;
+
+
         switch (rewardCode)
         {
             case "WoodCuttingFinished":
                 TantiNuti1.SetActive(false);
                 TantiNuti2.SetActive(true);
+                rewardMessage = "Wood collected!";
+                shouldPlayCutscene = false;
                 break;
 
-            case "Coin":
-                // Start delayed sequence for reward + cutscene
-                StartCoroutine(RewardDelaySequence());
+            case "FireWood":
+                rewardMessage = "You received FireWood!";
+                shouldPlayCutscene = true;
                 break;
+        
+            case "EggCollectingFinished":
+                TantiMariana1.SetActive(false);
+                TantiMariana2.SetActive(true);
+                rewardMessage = "Eggs collected!";
+                shouldPlayCutscene = false;
+                break;
+
+            case "Pie":
+                rewardMessage = "You received a Pie!";
+                // Start delayed sequence for reward + cutscene
+                //         StartCoroutine(RewardDelaySequence());
+                shouldPlayCutscene = true;
+                break;
+
+        }
+
+        if (!string.IsNullOrEmpty(rewardMessage))
+        {
+            if (shouldPlayCutscene)
+                StartCoroutine(RewardDelaySequence(rewardMessage));
+            else
+            {
+                // Just show the reward text without cutscene
+                ItemRewardText.text = rewardMessage;
+               // ItemReward.SetActive(true);
+
+                // Optionally hide after some seconds
+                StartCoroutine(HideRewardAfterDelay(3f));
+            }
         }
     }
-
-    private IEnumerator RewardDelaySequence()
+    private IEnumerator HideRewardAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+       // ItemReward.SetActive(false);
+    }
+    private IEnumerator RewardDelaySequence(string message)
     {
         // Wait before showing reward
         yield return new WaitForSeconds(waitBeforeReward);
 
         // Show the reward
-        ItemReward.SetActive(true);
+        ItemRewardText.text = message;
+        //ItemReward.SetActive(true);
 
         // Wait before world-change cutscene
         yield return new WaitForSeconds(waitBeforeCutscene);
@@ -175,7 +220,7 @@ public class WorldProgression : MonoBehaviour
         // Play world-change cutscene
         PlayWorldChangeCutScene();
 
-        ItemReward.SetActive(false);
+       // ItemReward.SetActive(false);
     }
 
 

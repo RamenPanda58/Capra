@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -6,8 +7,16 @@ public class TaskManager : MonoBehaviour
     public TaskBase currentTask;
     public TextMeshProUGUI CurrentQuest;
 
+    static public List<TaskBase> completedTasks;
+
+    public void Awake()
+    {
+        completedTasks = new List<TaskBase>();
+    }
+
     public void StartTask(TaskBase task)
     {
+        if (completedTasks.Contains(task)) return;
         currentTask = task;
         currentTask.StartTask();
         Debug.Log("Task started: " + (currentTask).TaskName);
@@ -29,9 +38,9 @@ public class TaskManager : MonoBehaviour
             return false;
         }
 
-        string heldItem = PlayerInventory.Instance.GetHeldItem();
+        
 
-        if (currentTask.CanPerform(heldItem, currentLocation))
+        if (currentTask.CanPerform(currentLocation, currentTask.RequiredItem))
         {
             currentTask.PerformTask();
             return true;

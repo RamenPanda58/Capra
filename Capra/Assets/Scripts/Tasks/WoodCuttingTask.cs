@@ -19,7 +19,7 @@ public class WoodcuttingTask : TaskBase
         if (IsComplete) return;
         string heldItem = PlayerInventory.Instance.GetHeldItem();
 
-        if (heldItem != toolRequired)
+        if (!PlayerInventory.Instance.HasItem(toolRequired))
         {
             Debug.Log($"You need a {toolRequired} to cut wood!");
             return;
@@ -40,7 +40,9 @@ public class WoodcuttingTask : TaskBase
 
     public override void CompleteTask()
     {
+        TaskManager.completedTasks.Add(this);
         WorldProgression.Instance.ApplyReward("WoodCuttingFinished");
+        PlayerInventory.Instance.RemoveItem("Axe");
         Debug.Log("Woodcutting task completed!");
     }
 

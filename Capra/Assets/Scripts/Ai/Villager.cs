@@ -1,4 +1,6 @@
 ﻿using HeneGames.DialogueSystem;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Villager : MonoBehaviour, IInteractable
@@ -10,6 +12,7 @@ public class Villager : MonoBehaviour, IInteractable
     private TaskManager taskManager;
     private DialogueManager dialogueManager;
 
+   
     private void Start()
     {
         taskManager = FindFirstObjectByType<TaskManager>();

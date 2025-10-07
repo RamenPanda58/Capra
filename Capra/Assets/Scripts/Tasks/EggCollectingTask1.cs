@@ -19,7 +19,7 @@ public class EggCollectingTask : TaskBase
         if (IsComplete) return;
         string heldItem = PlayerInventory.Instance.GetHeldItem();
 
-        if (heldItem != toolRequired)
+        if (!PlayerInventory.Instance.HasItem("Basket"))
         {
             Debug.Log($"You need a {toolRequired} to collect eggs!");
             return;
@@ -40,7 +40,9 @@ public class EggCollectingTask : TaskBase
 
     public override void CompleteTask()
     {
+        TaskManager.completedTasks.Add(this);
         WorldProgression.Instance.ApplyReward("EggCollectingFinished");
+        PlayerInventory.Instance.RemoveItem("Basket");
         Debug.Log("Eggcollecting task completed!");
     }
 

@@ -18,9 +18,8 @@ public abstract class TaskBase : ScriptableObject, ITask
     public abstract void PerformTask();
     public abstract void CompleteTask();
 
-    public bool CanPerform(string heldItem, TaskLocation currentLocation)
+    public virtual bool CanPerform(TaskLocation currentLocation, string requiredItem)
     {
-        if (currentLocation == null) return false;
-        return heldItem == requiredItem && currentLocation.LocationName == targetLocationName;
+        return PlayerInventory.Instance.HasItem(requiredItem) && currentLocation.LocationName== targetLocationName;
     }
 }
