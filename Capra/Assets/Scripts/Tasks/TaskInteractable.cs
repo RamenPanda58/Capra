@@ -1,47 +1,26 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Tasks/Eggcollecting Task")]
-public class EggcollectingTask : TaskBase
-{ 
-    [SerializeField] private int eggRequired = 12;    // How much eggs to collect
-    [SerializeField] private string eggItemName = "Egg"; // Item name to give player
-    [SerializeField] private string toolRequired = "Backset";  // Required item to perform task
+public class TaskInteractable : Interactable
+{
+    [Header("Optional Settings")]
+    [Tooltip("Should this object be destroyed when interacted with?")]
+    [SerializeField] private bool destroyOnInteract = false;
 
-    public override void StartTask()
+    private TaskManager taskManager;
+
+    private void Start()
     {
-        Debug.Log($"Go to {TargetLocationName} with an {toolRequired}.");
-        PlayerInventory.Instance.AddItem("Basket");
-        IsComplete = false;
+        taskManager = FindFirstObjectByType<TaskManager>();
     }
 
-    public override void PerformTask()
+    public override void Interact()
     {
-        if (IsComplete) return;
-        string heldItem = PlayerInventory.Instance.GetHeldItem();
-
-        if (heldItem != toolRequired)
+        if (taskManager.TryPerformTask())
         {
-            Debug.Log($"You need a {toolRequired} to collegt eggs!");
-            return;
-        }
-
-        PlayerInventory.Instance.AddItem(eggItemName, 1);
-        int currentEgg = PlayerInventory.Instance.GetItemCount(eggItemName);
-
-        Debug.Log($"You cut a {eggItemName}. You now have {currentEgg}/{eggRequired}.");
-
-        if (currentEgg >= eggRequired)
-        {
-            Debug.Log("You have collected enough eggs!");
-            IsComplete = true;
-            CompleteTask();
+            if (destroyOnInteract)
+            {
+                Destroy(gameObject);
+            }
         }
     }
-
-    public override void CompleteTask()
-    {
-        WorldProgression.Instance.ApplyReward("EggCollectingFinished");
-        Debug.Log("Egg collecting task completed!");
-    }
-
 }
