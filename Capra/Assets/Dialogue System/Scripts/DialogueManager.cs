@@ -217,6 +217,12 @@ namespace HeneGames.DialogueSystem
 
                 endDialogueEvent.Invoke();
 
+                if (WorldProgression.Instance != null)
+                {
+                    Debug.Log("[DialogueManager] Dialogue finished — notifying WorldProgression");
+                    WorldProgression.Instance.OnDialogueEndedForCurrentTask();
+                }
+
                 return;
             }
 
@@ -253,6 +259,8 @@ namespace HeneGames.DialogueSystem
             //Remove trigger refence
             dialogueIsOn = false;
             dialogueTrigger = null;
+
+
         }
 
         private void PlaySound(AudioClip _audioClip)

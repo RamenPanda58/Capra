@@ -22,7 +22,7 @@ public class WorldProgression : MonoBehaviour
     public GameObject AudioPart1;
     public GameObject CutSceneStoryPart2; // this is Capra's story
     public GameObject AudioPart2;
-    public GameObject CutSceneStoryPart3; // tanti Didina's story
+    public GameObject TantiDidinaCutScene; // tanti Didina's story
     public GameObject AudioPart3;
     public GameObject CutSceneStoryPart4; // Before party cutscene you hear that Tanti Geta passed away, but people come and help
     public GameObject AudioPart4;
@@ -40,7 +40,24 @@ public class WorldProgression : MonoBehaviour
     private bool CapraStoryPlayed = false;
     public float fadeSpeed = 3f; // smaller = slower fade
 
+    private bool dialogueJustEnded = false;
 
+    [Header("Character Interaction Settings")]
+    [SerializeField] private GameObject TantiGeta1; // initial model
+    [SerializeField] private GameObject TantiGeta2; // second model
+    [SerializeField] private GameObject TantiGeta3; // third model
+    [SerializeField] private GameObject TantiGeta4; // fourth model
+   // [SerializeField] private int interactionsRequired = 3; // number of talks before triggering
+    [SerializeField] private GameObject TantiDidinaLocation; // the location where the cutscene should play
+    private bool tantiDidinaReady = false;
+    public GameObject Ielele;
+    [SerializeField] private float cutsceneDelay = 1f; // optional delay before cutscene
+
+    private int currentInteractionCount = 0;
+    private bool cutsceneTriggered = false;
+
+    [Header("UI Settings")]
+    [SerializeField] private float rewardTextDuration = 3f; // how long the reward text stays on screen
 
     private void Awake()
     {
@@ -51,6 +68,7 @@ public class WorldProgression : MonoBehaviour
         }
         Instance = this;
     }
+
 
     private void Start()
     {
@@ -133,8 +151,19 @@ public class WorldProgression : MonoBehaviour
         if (CutSceneStoryPart2 != null)
             CutSceneStoryPart2.gameObject.SetActive(false);
 
+        if (TantiDidinaCutScene != null)
+            TantiDidinaCutScene.gameObject.SetActive(false);
+
+        Ielele.SetActive(false);
+
         if (AudioPart1 != null)
             AudioPart1.SetActive(false);
+
+        if (AudioPart2 != null)
+            AudioPart2.SetActive(false);
+
+        if (AudioPart3 != null)
+            AudioPart3.SetActive(false);
 
         if (WorldChangeCutScene != null)
             WorldChangeCutScene.gameObject.SetActive(false);
@@ -148,11 +177,33 @@ public class WorldProgression : MonoBehaviour
 
     }
 
+    public void OnDialogueEndedForCurrentTask()
+    {
+        Debug.Log("[WorldProgression] OnDialogueEndedForCurrentTask() was called!");
+
+        if (TaskManager.Instance.currentTask != null)
+        {
+            string rewardCode = TaskManager.Instance.currentTask.RewardCode;
+            Debug.Log($"Dialogue ended. Applying reward for current task: {rewardCode}");
+
+            dialogueJustEnded = true;
+
+            ApplyReward(rewardCode);
+
+        }
+        else
+        {
+            Debug.LogWarning("Dialogue ended, but no current task found!");
+        }
+    }
+
+
     // Apply world changes based on a reward code
     public void ApplyReward(string rewardCode)
     {
         string rewardMessage = "";
         bool shouldPlayCutscene = false;
+        bool shouldWaitForDialogue = false;
 
 
         switch (rewardCode)
@@ -162,11 +213,14 @@ public class WorldProgression : MonoBehaviour
                 TantiNuti2.SetActive(true);
                 rewardMessage = "Wood collected!";
                 shouldPlayCutscene = false;
+                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
                 break;
 
             case "FireWood":
                 rewardMessage = "You received FireWood!";
                 shouldPlayCutscene = true;
+                shouldWaitForDialogue = true;
+                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
                 break;
         
             case "EggCollectingFinished":
@@ -174,6 +228,7 @@ public class WorldProgression : MonoBehaviour
                 TantiMariana2.SetActive(true);
                 rewardMessage = "Eggs collected!";
                 shouldPlayCutscene = false;
+                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
                 break;
 
             case "Pie":
@@ -181,8 +236,48 @@ public class WorldProgression : MonoBehaviour
                 // Start delayed sequence for reward + cutscene
                 //         StartCoroutine(RewardDelaySequence());
                 shouldPlayCutscene = true;
+                shouldWaitForDialogue = true;
+                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
                 break;
 
+            case "Cozonac":
+                TantiGeta1.SetActive(false);
+                TantiGeta2.SetActive(true);
+                rewardMessage = "You received a cazonac from Tanti Geta!";
+                shouldPlayCutscene = false; // or true if you want
+                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
+                break;
+
+            case "DriedPlants":
+                TantiGeta2.SetActive(false);
+                TantiGeta3.SetActive(true);
+                rewardMessage = "You received dried plants from Tanti Geta!";
+                shouldPlayCutscene = false;
+                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
+                break;
+
+            case "Basma":
+                rewardMessage = "You received a basma from Tanti Geta!";
+                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
+                shouldPlayCutscene = false; // maybe trigger a special cutscene here
+
+                // Mark Tanti Didina cutscene as available
+                tantiDidinaReady = true;
+                Ielele.SetActive(true);
+
+                // Activate the location where the player must go
+                if (TantiDidinaLocation != null)
+                    TantiDidinaLocation.SetActive(true);
+
+
+                break;
+
+        }
+
+        if (shouldWaitForDialogue && !dialogueJustEnded)
+        {
+            Debug.Log("Dialogue not finished yet — skipping reward display for now.");
+            return;
         }
 
         if (!string.IsNullOrEmpty(rewardMessage))
@@ -196,14 +291,32 @@ public class WorldProgression : MonoBehaviour
                // ItemReward.SetActive(true);
 
                 // Optionally hide after some seconds
-                StartCoroutine(HideRewardAfterDelay(3f));
+                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
             }
         }
+
+        //  reset flag after we’re sure everything started
+        if (shouldWaitForDialogue)
+            dialogueJustEnded = false;
+
     }
     private IEnumerator HideRewardAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-       // ItemReward.SetActive(false);
+
+        float fadeDuration = 1f;
+        Color c = ItemRewardText.color;
+
+        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        {
+            c.a = Mathf.Lerp(1f, 0f, t / fadeDuration);
+            ItemRewardText.color = c;
+            yield return null;
+        }
+
+        c.a = 0f;
+        ItemRewardText.color = c;
+        ItemRewardText.text = "";
     }
     private IEnumerator RewardDelaySequence(string message)
     {
@@ -285,5 +398,40 @@ public class WorldProgression : MonoBehaviour
         StartCoroutine(FadeTextRoutine());
     }
 
+    public void TriggerTantiDidinaCutscene()
+    {
+        if (!tantiDidinaReady) return; // Only trigger if player got the Basma
+        if (TantiDidinaCutScene == null) return;
+
+        Debug.Log("Tanti Didina cutscene triggered!");
+
+        // Disable player movement
+        if (playerMovement != null)
+            playerMovement.enabled = false;
+
+        if (vCamera != null)
+            vCamera.lockCamera = true;
+
+        // Activate cutscene visuals
+        if (CutSceneBackground != null)
+            CutSceneBackground.SetActive(true);
+
+        TantiDidinaCutScene.SetActive(true);
+
+        if (AudioPart3 != null)
+            AudioPart3.SetActive(true);
+
+        // Optional: use your fade routine
+        StartCoroutine(FadeTextRoutine());
+
+        // Prevent retriggering
+        tantiDidinaReady = false;
+
+        // Disable location so it doesn’t trigger again
+        if (TantiDidinaLocation != null)
+            TantiDidinaLocation.SetActive(false);
+
+        StartCoroutine(FadeTextRoutine());
+    }
 
 }

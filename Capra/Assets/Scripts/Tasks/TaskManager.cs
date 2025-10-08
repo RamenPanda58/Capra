@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class TaskManager : MonoBehaviour
 {
+
+    public static TaskManager Instance { get; private set; }
+
+    public TaskBase CurrentTask { get; private set; }
+
     public TaskBase currentTask;
     public TextMeshProUGUI CurrentQuest;
 
@@ -12,6 +17,7 @@ public class TaskManager : MonoBehaviour
     public void Awake()
     {
         completedTasks = new List<TaskBase>();
+        Instance = this;
     }
 
     public void StartTask(TaskBase task)
@@ -21,6 +27,12 @@ public class TaskManager : MonoBehaviour
         currentTask.StartTask();
         Debug.Log("Task started: " + (currentTask).TaskName);
         CurrentQuest.text = "You might want to " + (currentTask).TaskName;
+    }
+
+    public void SetCurrentTask(TaskBase newTask)
+    {
+        CurrentTask = newTask;
+        newTask.StartTask();
     }
 
     public bool TryPerformTask()

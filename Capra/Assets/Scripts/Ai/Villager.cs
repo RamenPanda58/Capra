@@ -30,7 +30,7 @@ public class Villager : MonoBehaviour, IInteractable
         }
 
         // If task is complete
-        if (assignedTask != null && assignedTask.IsComplete)
+        if (taskManager.currentTask == assignedTask && assignedTask.IsComplete)
         {
             PlayerInventory.Instance.AddItem(rewardItemName, rewardAmount);
 
