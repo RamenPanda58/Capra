@@ -7,16 +7,26 @@ public class WorldProgression : MonoBehaviour
 {
     public static WorldProgression Instance { get; private set; }
 
+    [Header("World Change Progression")]
+    [SerializeField] private int worldChangeCounter = 0; // starts at 0
+    [SerializeField] private int maxWorldChanges = 3;
+    [SerializeField] private float delayBeforeWorldCutscene = 2f;
+
+    [Header("Villagers")]
     public GameObject TantiNuti1;
     public GameObject TantiNuti2;
     public GameObject TantiMariana1;
     public GameObject TantiMariana2;
-   // public GameObject ItemReward;
+    public GameObject NeneaMarian1;
+    public GameObject NeneaMarian2;
+    // public GameObject ItemReward;
     public TextMeshProUGUI ItemRewardText;
 
     [Header("CutScene Settings")]
     public GameObject CutSceneBackground;
     public TextMeshProUGUI WorldChangeCutScene; // this is a cutscene for when you do a good deed and the world changes
+    public TextMeshProUGUI WorldChangeCutScene2;
+    public TextMeshProUGUI WorldChangeCutScene3;
     public GameObject AudioWorldChange;
     public TextMeshProUGUI CutSceneStoryPart1; // this is the starts of the story and you get off a bus
     public GameObject AudioPart1;
@@ -53,8 +63,10 @@ public class WorldProgression : MonoBehaviour
     public GameObject Ielele;
     [SerializeField] private float cutsceneDelay = 1f; // optional delay before cutscene
 
-    private int currentInteractionCount = 0;
+   // private int currentInteractionCount = 0;
     private bool cutsceneTriggered = false;
+
+    private Coroutine hideRewardCoroutine;
 
     [Header("UI Settings")]
     [SerializeField] private float rewardTextDuration = 3f; // how long the reward text stays on screen
@@ -168,6 +180,12 @@ public class WorldProgression : MonoBehaviour
         if (WorldChangeCutScene != null)
             WorldChangeCutScene.gameObject.SetActive(false);
 
+        if (WorldChangeCutScene2 != null)
+            WorldChangeCutScene2.gameObject.SetActive(false);
+
+        if (WorldChangeCutScene3 != null)
+            WorldChangeCutScene3.gameObject.SetActive(false);
+
         // Enable player movement
         if (playerMovement != null)
             playerMovement.enabled = true;
@@ -205,7 +223,7 @@ public class WorldProgression : MonoBehaviour
         bool shouldPlayCutscene = false;
         bool shouldWaitForDialogue = false;
 
-
+        ResetOpacity();
         switch (rewardCode)
         {
             case "WoodCuttingFinished":
@@ -213,52 +231,69 @@ public class WorldProgression : MonoBehaviour
                 TantiNuti2.SetActive(true);
                 rewardMessage = "Wood collected!";
                 shouldPlayCutscene = false;
-                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
+                ResetOpacity();
                 break;
 
             case "FireWood":
                 rewardMessage = "You received FireWood!";
-                shouldPlayCutscene = true;
+                //  shouldPlayCutscene = true;
+                IncrementWorldChange();
                 shouldWaitForDialogue = true;
-                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
+                ResetOpacity();
                 break;
-        
+
             case "EggCollectingFinished":
                 TantiMariana1.SetActive(false);
                 TantiMariana2.SetActive(true);
                 rewardMessage = "Eggs collected!";
                 shouldPlayCutscene = false;
-                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
+                ResetOpacity();
                 break;
 
             case "Pie":
                 rewardMessage = "You received a Pie!";
                 // Start delayed sequence for reward + cutscene
                 //         StartCoroutine(RewardDelaySequence());
-                shouldPlayCutscene = true;
+                // shouldPlayCutscene = true;
+                IncrementWorldChange();
                 shouldWaitForDialogue = true;
-                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
+                ResetOpacity();
+                break;
+
+            case "WeedingFinished":
+                NeneaMarian1.SetActive(false);
+                NeneaMarian2.SetActive(true);
+                rewardMessage = "Weeds collected!";
+                shouldPlayCutscene = false;
+                ResetOpacity();
+                break;
+
+            case "Icoana":
+                rewardMessage = "You received an Icoana!";
+                //  shouldPlayCutscene = true;
+                IncrementWorldChange();
+                shouldWaitForDialogue = true;
+                ResetOpacity();
                 break;
 
             case "Cozonac":
                 TantiGeta1.SetActive(false);
                 TantiGeta2.SetActive(true);
-                rewardMessage = "You received a cazonac from Tanti Geta!";
+                rewardMessage = "You received a cazonac!";
                 shouldPlayCutscene = false; // or true if you want
-                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
+                ResetOpacity();
                 break;
 
             case "DriedPlants":
                 TantiGeta2.SetActive(false);
                 TantiGeta3.SetActive(true);
-                rewardMessage = "You received dried plants from Tanti Geta!";
+                rewardMessage = "You received dried plants!";
                 shouldPlayCutscene = false;
-                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
+                ResetOpacity();
                 break;
 
             case "Basma":
-                rewardMessage = "You received a basma from Tanti Geta!";
-                StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
+                rewardMessage = "You received a basma!";
                 shouldPlayCutscene = false; // maybe trigger a special cutscene here
 
                 // Mark Tanti Didina cutscene as available
@@ -269,6 +304,7 @@ public class WorldProgression : MonoBehaviour
                 if (TantiDidinaLocation != null)
                     TantiDidinaLocation.SetActive(true);
 
+                ResetOpacity();
 
                 break;
 
@@ -288,7 +324,7 @@ public class WorldProgression : MonoBehaviour
             {
                 // Just show the reward text without cutscene
                 ItemRewardText.text = rewardMessage;
-               // ItemReward.SetActive(true);
+                // ItemReward.SetActive(true);
 
                 // Optionally hide after some seconds
                 StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
@@ -298,6 +334,25 @@ public class WorldProgression : MonoBehaviour
         //  reset flag after we’re sure everything started
         if (shouldWaitForDialogue)
             dialogueJustEnded = false;
+
+    }
+
+    private void ResetOpacity()
+    {
+        Color c = ItemRewardText.color;
+        c.a = 1.0f;
+        ItemRewardText.color = c;
+    }
+
+    private void IncrementWorldChange()
+    {
+        if (worldChangeCounter >= maxWorldChanges)
+            return;
+
+        worldChangeCounter++;
+        Debug.Log($"World Change Count increased to: {worldChangeCounter}");
+
+        StartCoroutine(PlayWorldChangeCutScene(worldChangeCounter));
 
     }
     private IEnumerator HideRewardAfterDelay(float delay)
@@ -331,42 +386,56 @@ public class WorldProgression : MonoBehaviour
         yield return new WaitForSeconds(waitBeforeCutscene);
 
         // Play world-change cutscene
-        PlayWorldChangeCutScene();
+        StartCoroutine(PlayWorldChangeCutScene(worldChangeCounter));
 
-       // ItemReward.SetActive(false);
+
+        // ItemReward.SetActive(false);
     }
 
 
-    private void PlayWorldChangeCutScene()
-    {
-        if (WorldChangedPlayed) return;
-        WorldChangedPlayed = true;
 
-        // Disable player movement during intro
+    private IEnumerator PlayWorldChangeCutScene(int stage)
+    {
+        yield return new WaitForSeconds(delayBeforeWorldCutscene);
+
+        // Disable player movement during cutscene
         if (playerMovement != null)
             playerMovement.enabled = false;
 
         if (vCamera != null)
-            vCamera.lockCamera = true; // camera locked, player can’t rotate
+            vCamera.lockCamera = true;
 
-
-        // Show backrgound cutscene UI
+        // Show background
         if (CutSceneBackground != null)
             CutSceneBackground.SetActive(true);
 
-        // Show story cutscene UI
-        if (WorldChangeCutScene != null)
-            WorldChangeCutScene.gameObject.SetActive(true);
+        switch (stage)
+        {
+            case 1:
+                if (WorldChangeCutScene != null)
+                    WorldChangeCutScene.gameObject.SetActive(true);
+              //  if (AudioWorldChange != null)
+               //     AudioWorldChange.SetActive(true);
+                break;
 
-        // Play intro audio if it exists
-        if (AudioWorldChange != null)
-            AudioWorldChange.SetActive(true);
+            case 2:
+                if (WorldChangeCutScene2 != null)
+                    WorldChangeCutScene2.gameObject.SetActive(true);
+              //  if (AudioPart4 != null)
+              //      AudioPart4.SetActive(true);
+                break;
 
-        // Automatically end after a few seconds
-        // Invoke(nameof(EndIntroCutscene), introDuration);
+            case 3:
+                if (WorldChangeCutScene3 != null)
+                    WorldChangeCutScene3.gameObject.SetActive(true);
+             //   if (AudioPart5 != null)
+              //      AudioPart5.SetActive(true);
+                break;
+        }
 
         StartCoroutine(FadeTextRoutine());
     }
+
 
     public void PlayCapraCutscene()
     {
