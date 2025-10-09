@@ -19,6 +19,8 @@ public class WorldProgression : MonoBehaviour
     public GameObject TantiMariana2;
     public GameObject NeneaMarian1;
     public GameObject NeneaMarian2;
+    public GameObject Capra1;
+    public GameObject Capra2;
     // public GameObject ItemReward;
     public TextMeshProUGUI ItemRewardText;
 
@@ -38,6 +40,7 @@ public class WorldProgression : MonoBehaviour
     public GameObject AudioPart4;
     public GameObject CutSceneStoryPart5; // End Cutscene where capra comes back and leaves happy, knowing there will be a next year
     public GameObject AudioPart5;
+    public GameObject NightBeforeCelebrationCutScene;
     public float waitBeforeReward = 5f;
     public float waitBeforeCutscene = 5f;
 
@@ -56,7 +59,7 @@ public class WorldProgression : MonoBehaviour
     [SerializeField] private GameObject TantiGeta1; // initial model
     [SerializeField] private GameObject TantiGeta2; // second model
     [SerializeField] private GameObject TantiGeta3; // third model
-    [SerializeField] private GameObject TantiGeta4; // fourth model
+   // [SerializeField] private GameObject TantiGeta4; // fourth model
    // [SerializeField] private int interactionsRequired = 3; // number of talks before triggering
     [SerializeField] private GameObject TantiDidinaLocation; // the location where the cutscene should play
     private bool tantiDidinaReady = false;
@@ -67,6 +70,20 @@ public class WorldProgression : MonoBehaviour
     private bool cutsceneTriggered = false;
 
     private Coroutine hideRewardCoroutine;
+
+    [Header("Final Cutscene Settings")]
+    [SerializeField] private GameObject FinalCutsceneTriggerLocation; // location collider the player can enter
+    private bool finalCutsceneReady = false;
+    private bool finalCutscenePlayed = false;
+
+    private bool woodCollected = false;
+    private bool eggsCollected = false;
+    private bool weedsCollected = false;
+
+    public GameObject CelebrationLighting;
+    public GameObject GlobalVolumeSomber;
+    public GameObject GlobalVolumeCelebration;
+
 
     [Header("UI Settings")]
     [SerializeField] private float rewardTextDuration = 3f; // how long the reward text stays on screen
@@ -86,6 +103,41 @@ public class WorldProgression : MonoBehaviour
     {
         PlayIntroCutscene();
     }
+
+    private void Update()
+    {
+        // ===== DEBUG KEYS FOR TESTING REWARDS AND CUTSCENES =====
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Debug.Log("[DEBUG] Triggering WoodCuttingFinished reward manually.");
+            ApplyReward("WoodCuttingFinished");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log("[DEBUG] Triggering EggCollectingFinished reward manually.");
+            ApplyReward("EggCollectingFinished");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Debug.Log("[DEBUG] Triggering WeedingFinished reward manually.");
+            ApplyReward("WeedingFinished");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Debug.Log("[DEBUG] Triggering Basma reward manually (Tanti Didina unlock).");
+            ApplyReward("Basma");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Debug.Log("[DEBUG] Triggering Final Cutscene manually.");
+            TriggerFinalCutscene();
+        }
+    }
+
 
     // ==========================
     // INTRO CUTSCENE LOGIC
@@ -166,6 +218,10 @@ public class WorldProgression : MonoBehaviour
         if (TantiDidinaCutScene != null)
             TantiDidinaCutScene.gameObject.SetActive(false);
 
+
+        if (CutSceneStoryPart4 != null)
+            CutSceneStoryPart4.gameObject.SetActive(false);
+
         Ielele.SetActive(false);
 
         if (AudioPart1 != null)
@@ -219,6 +275,8 @@ public class WorldProgression : MonoBehaviour
     // Apply world changes based on a reward code
     public void ApplyReward(string rewardCode)
     {
+
+
         string rewardMessage = "";
         bool shouldPlayCutscene = false;
         bool shouldWaitForDialogue = false;
@@ -232,6 +290,7 @@ public class WorldProgression : MonoBehaviour
                 rewardMessage = "Wood collected!";
                 shouldPlayCutscene = false;
                 ResetOpacity();
+                woodCollected = true;
                 break;
 
             case "FireWood":
@@ -248,6 +307,7 @@ public class WorldProgression : MonoBehaviour
                 rewardMessage = "Eggs collected!";
                 shouldPlayCutscene = false;
                 ResetOpacity();
+                eggsCollected = true;
                 break;
 
             case "Pie":
@@ -266,6 +326,7 @@ public class WorldProgression : MonoBehaviour
                 rewardMessage = "Weeds collected!";
                 shouldPlayCutscene = false;
                 ResetOpacity();
+                weedsCollected = true;
                 break;
 
             case "Icoana":
@@ -310,6 +371,8 @@ public class WorldProgression : MonoBehaviour
 
         }
 
+        CheckFinalCutsceneCondition();
+
         if (shouldWaitForDialogue && !dialogueJustEnded)
         {
             Debug.Log("Dialogue not finished yet — skipping reward display for now.");
@@ -336,6 +399,29 @@ public class WorldProgression : MonoBehaviour
             dialogueJustEnded = false;
 
     }
+
+    private void CheckFinalCutsceneCondition()
+    {
+        if (woodCollected && eggsCollected && weedsCollected && !finalCutsceneReady)
+        {
+            finalCutsceneReady = true;
+            Debug.Log("All world tasks completed! Final cutscene location unlocked.");
+
+            if (FinalCutsceneTriggerLocation != null)
+            {
+                FinalCutsceneTriggerLocation.SetActive(true); // activate the collider
+                Debug.Log("FinalCutsceneTriggerLocation is now active.");
+
+
+                TantiGeta1.SetActive(false);
+                TantiGeta2.SetActive(false);
+                TantiGeta3.SetActive(false);
+
+            }
+        }
+    }
+
+
 
     private void ResetOpacity()
     {
@@ -502,5 +588,53 @@ public class WorldProgression : MonoBehaviour
 
         StartCoroutine(FadeTextRoutine());
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!finalCutsceneReady || finalCutscenePlayed)
+            return;
+
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player entered the final cutscene area.");
+            TriggerFinalCutscene();
+        }
+    }
+
+    public void TriggerFinalCutscene()
+    {
+        finalCutscenePlayed = true;
+
+        // Disable player movement
+        if (playerMovement != null)
+            playerMovement.enabled = false;
+
+        if (vCamera != null)
+            vCamera.lockCamera = true;
+
+        // Activate visuals and audio
+        if (CutSceneBackground != null)
+            CutSceneBackground.SetActive(true);
+
+        if (CutSceneStoryPart4 != null)
+            CutSceneStoryPart4.SetActive(true);
+
+     
+
+        StartCoroutine(FadeTextRoutine());
+
+        // Optionally disable collider so it doesn’t trigger again
+        if (FinalCutsceneTriggerLocation != null)
+            FinalCutsceneTriggerLocation.SetActive(false);
+
+        Capra2.SetActive(true);
+        Capra1.SetActive(false);
+        CelebrationLighting.SetActive(true);
+        GlobalVolumeSomber.SetActive(false);
+        GlobalVolumeCelebration.SetActive(true);
+
+        StartCoroutine(FadeTextRoutine());
+    }
+
 
 }
