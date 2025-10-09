@@ -11,7 +11,7 @@ public class DayNightCycle : MonoBehaviour
     public Light directionalLight;      // Your Sun/Moon
     public Color dayColor = new Color(1f, 0.956f, 0.839f);
     public Color nightColor = new Color(0.2f, 0.3f, 0.5f);
-    public float sunTilt = 23.5f;      // axial tilt for realism
+    public float sunTilt = 23.5f;       // axial tilt for realism
 
     [Header("Ambient Light Settings")]
     public Color ambientDayColor = Color.white;
@@ -20,9 +20,17 @@ public class DayNightCycle : MonoBehaviour
     [Header("Start Time Settings")]
     [Range(0f, 24f)] public float startHour = 17f; // start at 5 PM by default
 
+    [Header("Day Counter")]
+    public int dayCount = 0; // Start at 0 so first full day is "Day 1"
+
+    [Header("Dialogue UI")]
+    public GameObject dialogueUI; // Turned on/off depending on day/night
+
     private bool isDay;
     private float timer;
     private float currentPhaseDuration;
+
+    public System.Action OnNewDay;
 
     void Start()
     {
@@ -42,6 +50,9 @@ public class DayNightCycle : MonoBehaviour
         }
 
         UpdateLightingInstant();
+        UpdateDialogueState();
+
+        Debug.Log($"Game started at {FormatTime(startHour)} — Night will fall soon.");
     }
 
     void Update()
@@ -54,23 +65,30 @@ public class DayNightCycle : MonoBehaviour
             else StartDay();
         }
 
-        // Smoothly rotate sun around pivot
         float t = Mathf.Clamp01(timer / currentPhaseDuration);
         float sunRotation = 0f;
 
         if (isDay)
-            sunRotation = Mathf.Lerp(-90f, 90f, t); // from sunrise (-90°) to sunset (90°)
+            sunRotation = Mathf.Lerp(-90f, 90f, t); // sunrise to sunset
         else
-            sunRotation = Mathf.Lerp(90f, 270f, t); // from sunset to next sunrise
+            sunRotation = Mathf.Lerp(90f, 270f, t); // sunset to next sunrise
 
         sunPivot.localRotation = Quaternion.Euler(sunRotation, 0f, sunTilt);
 
-        // Smoothly update colors
         float colorT = t;
         if (!isDay) colorT = 1f - t;
 
         directionalLight.color = Color.Lerp(nightColor, dayColor, colorT);
         RenderSettings.ambientLight = Color.Lerp(ambientNightColor, ambientDayColor, colorT);
+
+        float currentHour = CalculateCurrentHour();
+        if (Mathf.Abs(Time.frameCount % 60) < 0.1f)
+        {
+            string phase = isDay ? "Day" : "Night";
+            Debug.Log($"[{phase}] Current Time: {FormatTime(currentHour)}  |  Day: {dayCount}");
+        }
+
+        UpdateDebugKeys();
     }
 
     private void StartDay()
@@ -78,6 +96,22 @@ public class DayNightCycle : MonoBehaviour
         isDay = true;
         currentPhaseDuration = dayDuration;
         timer = 0f;
+
+        if (dayCount > 0 || startHour < 6f || startHour >= 18f)
+        {
+            dayCount++;
+            Debug.Log($"A new day has started. Day: {dayCount}");
+            OnNewDay?.Invoke();
+        }
+        else
+        {
+            dayCount = 1;
+            Debug.Log("First full day begins.");
+            OnNewDay?.Invoke();
+        }
+
+        Debug.Log("It is now DAYTIME.");
+        UpdateDialogueState();
     }
 
     private void StartNight()
@@ -85,9 +119,41 @@ public class DayNightCycle : MonoBehaviour
         isDay = false;
         currentPhaseDuration = nightDuration;
         timer = 0f;
+        Debug.Log("It is now NIGHTTIME.");
+        UpdateDialogueState();
     }
 
-    // Instantly set light to current time
+    private void UpdateDialogueState()
+    {
+        if (dialogueUI != null)
+        {
+            dialogueUI.SetActive(isDay);
+        }
+    }
+
+    private float CalculateCurrentHour()
+    {
+        if (isDay)
+        {
+            float t = Mathf.Clamp01(timer / dayDuration);
+            return Mathf.Lerp(6f, 18f, t);
+        }
+        else
+        {
+            float t = Mathf.Clamp01(timer / nightDuration);
+            float hour = Mathf.Lerp(18f, 30f, t);
+            if (hour >= 24f) hour -= 24f;
+            return hour;
+        }
+    }
+
+    private string FormatTime(float hour)
+    {
+        int h = Mathf.FloorToInt(hour);
+        int m = Mathf.FloorToInt((hour - h) * 60f);
+        return $"{h:00}:{m:00}";
+    }
+
     private void UpdateLightingInstant()
     {
         float t = Mathf.Clamp01(timer / currentPhaseDuration);
@@ -99,7 +165,6 @@ public class DayNightCycle : MonoBehaviour
         RenderSettings.ambientLight = Color.Lerp(ambientNightColor, ambientDayColor, colorT);
     }
 
-    // Optional debug keys
     void UpdateDebugKeys()
     {
         if (Input.GetKeyDown(KeyCode.D)) StartDay();
@@ -108,4 +173,6 @@ public class DayNightCycle : MonoBehaviour
 
     public void ForceDay() => StartDay();
     public void ForceNight() => StartNight();
+
+    public bool IsDaytime() => isDay;
 }

@@ -1454,7 +1454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d5a02f614db6447ac1fabcd6d21f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayDuration: 10
+  dayDuration: 100
   nightDuration: 10
   sunPivot: {fileID: 1442882461}
   directionalLight: {fileID: 1154781150}
@@ -1464,6 +1464,8 @@ MonoBehaviour:
   ambientDayColor: {r: 1, g: 1, b: 1, a: 1}
   ambientNightColor: {r: 0.1, g: 0.1, b: 0.2, a: 1}
   startHour: 17
+  dayCount: 0
+  dialogueUI: {fileID: 2022921445}
 --- !u!4 &276145256
 Transform:
   m_ObjectHideFlags: 0
@@ -16567,6 +16569,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &2022921445 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6449296285829880533, guid: 66a0aba2ba55058439c92574558222ac, type: 3}
+  m_PrefabInstance: {fileID: 1442577291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2043298186
 GameObject:
   m_ObjectHideFlags: 0
