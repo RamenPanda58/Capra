@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SnowLayer
+  m_Name: Trees
   m_Shader: {fileID: -6465566751694194690, guid: c1ec7955cb4ca664a9ea5c0107d70b31, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -29,7 +29,7 @@ Material:
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2008
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -64,15 +64,15 @@ Material:
     m_Ints: []
     m_Floats:
     - _NoiseSize: 50
-    - _NormalStrength: 3.01
+    - _NormalStrength: 1
     - _QueueControl: 0
-    - _QueueOffset: 8
+    - _QueueOffset: 0
     - _SnowAmount: 0.5
     - _SnowBlend: 0.05
     - _SnowColorNoiseSize: 250
-    - _SnowColorNoiseStrength: 0.679
+    - _SnowColorNoiseStrength: 0.5
     m_Colors:
-    - _BaseColor: {r: 0.64779866, g: 0.64779866, b: 0.64779866, a: 0}
+    - _BaseColor: {r: 0.38993704, g: 0.30042318, b: 0.30042318, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _SnowColor: {r: 1.498039, g: 1.498039, b: 1.498039, a: 1}
     - _SnowDirection: {r: 0, g: 1, b: 0, a: 0}
