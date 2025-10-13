@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &621045559571599312
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8609892466960389515, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d4e9b1392edae343b10c5b3f949be1c, type: 2}
+    - target: {fileID: 8609892466963465459, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 823.68475
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609892466963465459, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 19.988293
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609892466963465459, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1349.1403
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609892466963465459, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609892466963465459, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609892466963465459, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609892466963465459, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609892466963465459, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609892466963465459, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609892466963465459, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609892466963568851, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
+      propertyPath: m_Name
+      value: Chicken1_Legacy (2) Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a0934ce75fc011841b09cf16977fef35, type: 3}
