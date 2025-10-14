@@ -7972,6 +7972,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758031401}
   m_CullTransparentMesh: 1
+--- !u!1 &777863746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 777863747}
+  m_Layer: 5
+  m_Name: Intro Cutscene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &777863747
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777863746}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.27571, y: 0.27571, z: 0.27571}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1500204690}
+  m_Father: {fileID: 1575886767}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 29, y: 108.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &802942442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13389,7 +13425,7 @@ Transform:
   m_GameObject: {fileID: 915528770}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 840.0979, y: 11.620845, z: 1330.988}
+  m_LocalPosition: {x: 840.0979, y: 11.5, z: 1330.988}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16466,7 +16502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1500204690
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16476,14 +16512,14 @@ RectTransform:
   m_GameObject: {fileID: 1500204689}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.27571, y: 0.27571, z: 0.27571}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1575886767}
+  m_Father: {fileID: 777863747}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 29, y: 108.5}
+  m_AnchoredPosition: {x: -0.00005531311, y: -0.00005340576}
   m_SizeDelta: {x: 2557.5505, y: 916.8522}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1500204691
@@ -16986,7 +17022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1563162779
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17026,7 +17062,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tanti nuti gamve you somethign
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -17202,7 +17238,7 @@ RectTransform:
   - {fileID: 1968559161}
   - {fileID: 1715920035}
   - {fileID: 1129388093}
-  - {fileID: 1500204690}
+  - {fileID: 777863747}
   - {fileID: 465483827}
   - {fileID: 1470676066}
   - {fileID: 1232824429}
@@ -29725,7 +29761,6 @@ MonoBehaviour:
   waitBeforeCutscene: 1.5
   playerMovement: {fileID: 1740480757}
   vCamera: {fileID: 573157871}
-  introDuration: 21
   fadeSpeed: 2
   TantiGeta1: {fileID: 1685082766}
   TantiGeta2: {fileID: 1585811866}
@@ -29737,6 +29772,11 @@ MonoBehaviour:
   CelebrationLighting: {fileID: 1300622233}
   GlobalVolumeSomber: {fileID: 1717955414}
   GlobalVolumeCelebration: {fileID: 890541350}
+  introDuration: 21
+  capraDuration: 5
+  tantiDidinaDuration: 7
+  finalCutsceneDuration: 8
+  worldChangeDuration: 2.5
   rewardTextDuration: 2
 --- !u!4 &2043298188
 Transform:

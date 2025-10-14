@@ -47,7 +47,6 @@ public class WorldProgression : MonoBehaviour
     [Header("Player Settings")]
     public MonoBehaviour playerMovement; // drag your player movement script here
     public vThirdPersonCamera vCamera; // drag your camera object here
-    public float introDuration = 5f;     // how long the intro lasts
     private bool introPlayed = false;
     private bool WorldChangedPlayed = false;
     private bool CapraStoryPlayed = false;
@@ -85,10 +84,11 @@ public class WorldProgression : MonoBehaviour
     public GameObject GlobalVolumeCelebration;
 
     [Header("Cutscene Durations")]
-    public float introCutsceneDuration = 5f;
-    public float capraCutsceneDuration = 7f;
-    public float tantiDidinaCutsceneDuration = 6f;
+    public float introDuration = 5f;     // how long the intro lasts
+    public float capraDuration = 7f;
+    public float tantiDidinaDuration = 6f;
     public float finalCutsceneDuration = 8f;
+    public float worldChangeDuration = 6f;
 
 
 
@@ -176,37 +176,60 @@ public class WorldProgression : MonoBehaviour
         // Automatically end after a few seconds
         // Invoke(nameof(EndIntroCutscene), introDuration);
 
-        StartCoroutine(FadeTextRoutine());
-        
+            StartCoroutine(FadeTextRoutine(CutSceneStoryPart1, introDuration));
+
     }
 
-    private IEnumerator FadeTextRoutine()
+    private IEnumerator FadeTextRoutine(Object element, float duration)
     {
-        Color c = CutSceneStoryPart1.color;
-        c.a = 0;
-        CutSceneStoryPart1.color = c;
-
-        // Fade in
-        while (c.a < 1f)
+        // Handle TextMeshProUGUI type
+        if (element is TextMeshProUGUI textElement)
         {
-            c.a += Time.deltaTime * fadeSpeed;
-            CutSceneStoryPart1.color = c;
-            yield return null;
+            Color c = textElement.color;
+            c.a = 0;
+            textElement.color = c;
+            textElement.gameObject.SetActive(true);
+
+            // Fade in
+            while (c.a < 1f)
+            {
+                c.a += Time.deltaTime * fadeSpeed;
+                textElement.color = c;
+                yield return null;
+            }
+
+            // Wait while visible
+            yield return new WaitForSeconds(duration - 2f);
+
+            // Fade out
+            while (c.a > 0f)
+            {
+                c.a -= Time.deltaTime * fadeSpeed;
+                textElement.color = c;
+                yield return null;
+            }
+
+            c.a = 0f;
+            textElement.color = c;
+            textElement.gameObject.SetActive(false);
+        }
+        // Handle GameObject type
+        else if (element is GameObject go)
+        {
+            go.SetActive(true);
+            yield return new WaitForSeconds(duration);
+            go.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning($"[FadeTextRoutine] Unsupported element type: {element}");
         }
 
-        // Wait while visible
-        yield return new WaitForSeconds(introDuration - 2f);
-
-        // Fade out
-        while (c.a > 0f)
-        {
-            c.a -= Time.deltaTime * fadeSpeed;
-            CutSceneStoryPart1.color = c;
-            yield return null;
-        }
-
+        // Call universal end logic
         EndCutscene();
     }
+
+
 
     private void EndCutscene()
     {
@@ -507,26 +530,29 @@ public class WorldProgression : MonoBehaviour
             case 1:
                 if (WorldChangeCutScene != null)
                     WorldChangeCutScene.gameObject.SetActive(true);
-              //  if (AudioWorldChange != null)
-               //     AudioWorldChange.SetActive(true);
+                StartCoroutine(FadeTextRoutine(WorldChangeCutScene, worldChangeDuration));
+                //  if (AudioWorldChange != null)
+                //     AudioWorldChange.SetActive(true);
                 break;
 
             case 2:
                 if (WorldChangeCutScene2 != null)
                     WorldChangeCutScene2.gameObject.SetActive(true);
-              //  if (AudioPart4 != null)
-              //      AudioPart4.SetActive(true);
+                StartCoroutine(FadeTextRoutine(WorldChangeCutScene2, worldChangeDuration));
+                //  if (AudioPart4 != null)
+                //      AudioPart4.SetActive(true);
                 break;
 
             case 3:
                 if (WorldChangeCutScene3 != null)
                     WorldChangeCutScene3.gameObject.SetActive(true);
-             //   if (AudioPart5 != null)
-              //      AudioPart5.SetActive(true);
+                StartCoroutine(FadeTextRoutine(WorldChangeCutScene3, worldChangeDuration));
+                //   if (AudioPart5 != null)
+                //      AudioPart5.SetActive(true);
                 break;
         }
 
-        StartCoroutine(FadeTextRoutine());
+        //StartCoroutine(FadeTextRoutine());
     }
 
 
@@ -557,7 +583,7 @@ public class WorldProgression : MonoBehaviour
             CutSceneStoryPart2.gameObject.SetActive(true);
 
 
-        StartCoroutine(FadeTextRoutine());
+        StartCoroutine(FadeTextRoutine(CutSceneStoryPart2, capraDuration));
     }
 
     public void TriggerTantiDidinaCutscene()
@@ -584,7 +610,7 @@ public class WorldProgression : MonoBehaviour
             AudioPart3.SetActive(true);
 
         // Optional: use your fade routine
-        StartCoroutine(FadeTextRoutine());
+        StartCoroutine(FadeTextRoutine(TantiDidinaCutScene, tantiDidinaDuration));
 
         // Prevent retriggering
         tantiDidinaReady = false;
@@ -593,7 +619,7 @@ public class WorldProgression : MonoBehaviour
         if (TantiDidinaLocation != null)
             TantiDidinaLocation.SetActive(false);
 
-        StartCoroutine(FadeTextRoutine());
+        StartCoroutine(FadeTextRoutine(TantiDidinaCutScene, tantiDidinaDuration));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -626,9 +652,9 @@ public class WorldProgression : MonoBehaviour
         if (CutSceneStoryPart4 != null)
             CutSceneStoryPart4.SetActive(true);
 
-     
 
-        StartCoroutine(FadeTextRoutine());
+
+        StartCoroutine(FadeTextRoutine(CutSceneStoryPart4, finalCutsceneDuration));
 
         // Optionally disable collider so it doesn’t trigger again
         if (FinalCutsceneTriggerLocation != null)
@@ -640,7 +666,7 @@ public class WorldProgression : MonoBehaviour
         GlobalVolumeSomber.SetActive(false);
         GlobalVolumeCelebration.SetActive(true);
 
-        StartCoroutine(FadeTextRoutine());
+        StartCoroutine(FadeTextRoutine(CutSceneStoryPart4, finalCutsceneDuration));
     }
 
 
