@@ -84,6 +84,13 @@ public class WorldProgression : MonoBehaviour
     public GameObject GlobalVolumeSomber;
     public GameObject GlobalVolumeCelebration;
 
+    [Header("Cutscene Durations")]
+    public float introCutsceneDuration = 5f;
+    public float capraCutsceneDuration = 7f;
+    public float tantiDidinaCutsceneDuration = 6f;
+    public float finalCutsceneDuration = 8f;
+
+
 
     [Header("UI Settings")]
     [SerializeField] private float rewardTextDuration = 3f; // how long the reward text stays on screen
