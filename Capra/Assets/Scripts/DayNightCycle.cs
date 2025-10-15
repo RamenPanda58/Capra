@@ -25,8 +25,10 @@ public class DayNightCycle : MonoBehaviour
     [Header("Day Counter")]
     public int dayCount = 0;
 
-    [Header("Dialogue UI")]
+    [Header("UI")]
     public GameObject dialogueUI;
+    public GameObject interactionPromptUI; // drag the Press E UI here
+    public GameObject nightSkipMessageUI;
 
     [Header("Environment GameObjects")]
     public GameObject dayBirdsObject;
@@ -45,7 +47,7 @@ public class DayNightCycle : MonoBehaviour
 
     public System.Action OnNewDay;
 
-    private const float dayStartHour = 5f;
+    private const float dayStartHour = 6.5f;
     private const float nightStartHour = 20f;
 
     private Coroutine morningMessageRoutine;
@@ -97,7 +99,7 @@ public class DayNightCycle : MonoBehaviour
 
         if (isDay)
         {
-            if (!hasShownMorningMessage && currentHour >= 6.5f && currentHour < 7f)
+            if (!hasShownMorningMessage && currentHour >= 6f && currentHour < 7f)
             {
                 hasShownMorningMessage = true;
                 ShowMorningMessage("It's day " + dayCount + "! Let's make the most out of it!");
@@ -117,6 +119,14 @@ public class DayNightCycle : MonoBehaviour
             string phase = isDay ? "Day" : "Night";
             Debug.Log("[" + phase + "] Current Time: " + FormatTime(currentHour) + " | Day: " + dayCount);
         }
+
+        // DEBUG: Skip to next day at night
+        if (!isDay && Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("[DEBUG] Skipping night to next day...");
+            StartDay();
+        }
+
     }
 
     private string FormatTime(float hour)
@@ -164,6 +174,17 @@ public class DayNightCycle : MonoBehaviour
             dayBirdsObject.SetActive(isDay);
         if (nightBirdsObject != null)
             nightBirdsObject.SetActive(!isDay);
+
+        if (interactionPromptUI != null)
+        {
+            interactionPromptUI.SetActive(isDay);
+        }
+
+        if (nightSkipMessageUI != null)
+        {
+            nightSkipMessageUI.SetActive(!isDay); // show only at night
+        }
+
 
         // villagers handled dynamically in Update()
     }

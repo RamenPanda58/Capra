@@ -15,10 +15,13 @@ public class WorldProgression : MonoBehaviour
     [Header("Villagers")]
     public GameObject TantiNuti1;
     public GameObject TantiNuti2;
+    public GameObject TantiNuti3;
     public GameObject TantiMariana1;
     public GameObject TantiMariana2;
+    public GameObject TantiMariana3;
     public GameObject NeneaMarian1;
     public GameObject NeneaMarian2;
+    public GameObject NeneaMarian3;
     public GameObject Capra1;
     public GameObject Capra2;
     // public GameObject ItemReward;
@@ -43,6 +46,7 @@ public class WorldProgression : MonoBehaviour
     public GameObject NightBeforeCelebrationCutScene;
     public float waitBeforeReward = 5f;
     public float waitBeforeCutscene = 5f;
+    public GameObject CelebrationNoteUI;
 
     [Header("Player Settings")]
     public MonoBehaviour playerMovement; // drag your player movement script here
@@ -143,6 +147,16 @@ public class WorldProgression : MonoBehaviour
             Debug.Log("[DEBUG] Triggering Final Cutscene manually.");
             TriggerFinalCutscene();
         }
+
+        // DEBUG: Skip Intro Cutscene
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log("[DEBUG] Skipping intro cutscene...");
+            StopAllCoroutines(); // stop any ongoing fade
+            EndCutscene();       // cleanly end it
+            introPlayed = true;  // mark it as played so it won’t replay
+        }
+
     }
 
 
@@ -446,7 +460,19 @@ public class WorldProgression : MonoBehaviour
                 TantiGeta1.SetActive(false);
                 TantiGeta2.SetActive(false);
                 TantiGeta3.SetActive(false);
+                TantiMariana2.SetActive(false);
+                TantiNuti2.SetActive(false);
+                NeneaMarian2.SetActive(false);
+                TantiMariana3.SetActive(true);
+                TantiNuti3.SetActive(true);
+                NeneaMarian3.SetActive(true);
 
+                // Show the note UI to guide the player
+                if (CelebrationNoteUI != null)
+                {
+                    CelebrationNoteUI.SetActive(true);
+                    Debug.Log("Celebration Note UI is now active to guide the player.");
+                }
             }
         }
     }
