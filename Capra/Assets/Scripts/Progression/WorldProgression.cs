@@ -26,6 +26,7 @@ public class WorldProgression : MonoBehaviour
     public GameObject Capra2;
     // public GameObject ItemReward;
     public TextMeshProUGUI ItemRewardText;
+    [SerializeField] private GameObject TantiGetaWaiting;
 
     [Header("CutScene Settings")]
     public GameObject CutSceneBackground;
@@ -62,6 +63,7 @@ public class WorldProgression : MonoBehaviour
     private bool icoanaReceived = false;
 
 
+
     [Header("Character Interaction Settings")]
     [SerializeField] private GameObject TantiGeta1; // initial model
     [SerializeField] private GameObject TantiGeta2; // second model
@@ -77,6 +79,10 @@ public class WorldProgression : MonoBehaviour
     private bool cutsceneTriggered = false;
 
     private Coroutine hideRewardCoroutine;
+
+    private bool canGetTantiGetaReward = true; // only for TantiGeta
+    private float tantiGetaCooldown = 20f;     // 10 seconds cooldown
+
 
     [Header("Final Cutscene Settings")]
     [SerializeField] private GameObject FinalCutsceneTriggerLocation; // location collider the player can enter
@@ -319,11 +325,30 @@ public class WorldProgression : MonoBehaviour
         }
     }
 
+    private bool CheckTantiGetaCooldown(string rewardCode)
+    {
+        if (rewardCode == "Cozonac" || rewardCode == "DriedPlants" || rewardCode == "Basma")
+        {
+            if (!canGetTantiGetaReward)
+            {
+                ShowRewardMessage("Come back later!");
+                dialogueJustEnded = false;  // prevent dialogue from progressing
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
 
     // Apply world changes based on a reward code
     public void ApplyReward(string rewardCode)
     {
-
+        // ----- CHECK COOLDOWN FIRST -----
+        if (!CheckTantiGetaCooldown(rewardCode))
+            return; // stop everything if on cooldown
+                    // --------------------------------
 
         string rewardMessage = "";
         bool shouldPlayCutscene = false;
@@ -389,38 +414,40 @@ public class WorldProgression : MonoBehaviour
                 break;
 
             case "Cozonac":
-                TantiGeta1.SetActive(false);
-                TantiGeta2.SetActive(true);
-                rewardMessage = "You received a cazonac!";
-                shouldPlayCutscene = false; // or true if you want
-                ResetOpacity();
+                // Show the reward message immediately
+                ShowRewardMessage("You received a Cozonac!");
+
+                // Activate waiting visual
+                if (TantiGetaWaiting != null)
+                    TantiGetaWaiting.SetActive(true);
+
+                // Start cooldown / delayed transform
+                StartCoroutine(TantiGetaDelayedTransform(rewardCode));
                 break;
 
             case "DriedPlants":
-                TantiGeta2.SetActive(false);
-                TantiGeta3.SetActive(true);
-                rewardMessage = "You received dried plants!";
-                shouldPlayCutscene = false;
-                ResetOpacity();
+                ShowRewardMessage("You received dried plants!");
+
+                if (TantiGetaWaiting != null)
+                    TantiGetaWaiting.SetActive(true);
+
+                StartCoroutine(TantiGetaDelayedTransform(rewardCode));
                 break;
 
             case "Basma":
-                rewardMessage = "You received a basma!";
-                shouldPlayCutscene = false; // maybe trigger a special cutscene here
+                ShowRewardMessage("You received a basma!");
 
-                // Mark Tanti Didina cutscene as available
-                tantiDidinaReady = true;
-                Ielele.SetActive(true);
+                if (TantiGetaWaiting != null)
+                    TantiGetaWaiting.SetActive(true);
 
-                // Activate the location where the player must go
-                if (TantiDidinaLocation != null)
-                    TantiDidinaLocation.SetActive(true);
-
-                ResetOpacity();
-
+                StartCoroutine(TantiGetaDelayedTransform(rewardCode));
                 break;
+                // Start cooldown / transformation coroutine
+               
+             
 
         }
+
 
         CheckFinalCutsceneCondition();
 
@@ -450,6 +477,40 @@ public class WorldProgression : MonoBehaviour
             dialogueJustEnded = false;
 
     }
+
+    private IEnumerator TantiGetaDelayedTransform(string rewardCode)
+    {
+        canGetTantiGetaReward = false;
+        yield return new WaitForSeconds(tantiGetaCooldown);
+
+        // Hide waiting visual
+        if (TantiGetaWaiting != null)
+            TantiGetaWaiting.SetActive(false);
+
+        // Transform the TantiGeta model or unlock Basma
+        switch (rewardCode)
+        {
+            case "Cozonac":
+                TantiGeta1.SetActive(false);
+                TantiGeta2.SetActive(true);
+                break;
+
+            case "DriedPlants":
+                TantiGeta2.SetActive(false);
+                TantiGeta3.SetActive(true);
+                break;
+
+            case "Basma":
+                tantiDidinaReady = true;
+                Ielele.SetActive(true);
+                if (TantiDidinaLocation != null)
+                    TantiDidinaLocation.SetActive(true);
+                break;
+        }
+
+        canGetTantiGetaReward = true;
+    }
+
 
     private void CheckFinalCutsceneCondition()
     {
@@ -485,6 +546,12 @@ public class WorldProgression : MonoBehaviour
     }
 
 
+    private IEnumerator TantiGetaCooldown()
+    {
+        canGetTantiGetaReward = false;
+        yield return new WaitForSeconds(tantiGetaCooldown);
+        canGetTantiGetaReward = true;
+    }
 
     private void ResetOpacity()
     {
@@ -503,6 +570,24 @@ public class WorldProgression : MonoBehaviour
 
         StartCoroutine(PlayWorldChangeCutScene(worldChangeCounter));
 
+    }
+
+    private void ShowRewardMessage(string message)
+    {
+        // Set the UI text
+        ItemRewardText.text = message;
+
+        // Make sure it’s visible
+        Color c = ItemRewardText.color;
+        c.a = 1f;
+        ItemRewardText.color = c;
+
+        // Stop previous hide coroutine if running
+        if (hideRewardCoroutine != null)
+            StopCoroutine(hideRewardCoroutine);
+
+        // Start fade/hide after delay
+        hideRewardCoroutine = StartCoroutine(HideRewardAfterDelay(rewardTextDuration));
     }
     private IEnumerator HideRewardAfterDelay(float delay)
     {
