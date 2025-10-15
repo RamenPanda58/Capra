@@ -2556,7 +2556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35646ef2a10aaf545a5e00729e334527, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: 35646ef2a10aaf545a5e00729e334527, type: 3}
       propertyPath: m_LocalScale.x
@@ -8611,8 +8611,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tiny changes stir the air. A light flickers here, a shadow lifts there.
-    With each small gesture, the world feels a little warmer, a little more alive.
+  m_text: 'Tiny changes stir the air. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 72f92ac8e1f3ebe4d98cb43cb31a781d, type: 2}
   m_sharedMaterial: {fileID: 1098693605787584827, guid: 72f92ac8e1f3ebe4d98cb43cb31a781d, type: 2}
@@ -15668,8 +15667,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tiny changes stir the air. A light flickers here, a shadow lifts there.
-    With each small gesture, the world feels a little warmer, a little more alive.
+  m_text: 'Tiny changes stir the air. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 72f92ac8e1f3ebe4d98cb43cb31a781d, type: 2}
   m_sharedMaterial: {fileID: 1098693605787584827, guid: 72f92ac8e1f3ebe4d98cb43cb31a781d, type: 2}
@@ -19522,7 +19520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3d137af6dd7dcfa409813e53e40f205d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21886,8 +21884,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tiny changes stir the air. A light flickers here, a shadow lifts there.
-    With each small gesture, the world feels a little warmer, a little more alive.
+  m_text: 'Tiny changes stir the air. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 72f92ac8e1f3ebe4d98cb43cb31a781d, type: 2}
   m_sharedMaterial: {fileID: 1098693605787584827, guid: 72f92ac8e1f3ebe4d98cb43cb31a781d, type: 2}
@@ -29771,7 +29768,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 399e6d3fcc2080c4aa0ca22c25ca38d4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1313273048685832547, guid: 399e6d3fcc2080c4aa0ca22c25ca38d4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

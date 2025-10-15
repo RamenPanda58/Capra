@@ -57,6 +57,10 @@ public class WorldProgression : MonoBehaviour
     public float fadeSpeed = 3f; // smaller = slower fade
 
     private bool dialogueJustEnded = false;
+    private bool fireWoodReceived = false;
+    private bool pieReceived = false;
+    private bool icoanaReceived = false;
+
 
     [Header("Character Interaction Settings")]
     [SerializeField] private GameObject TantiGeta1; // initial model
@@ -343,6 +347,7 @@ public class WorldProgression : MonoBehaviour
                 IncrementWorldChange();
                 shouldWaitForDialogue = true;
                 ResetOpacity();
+                fireWoodReceived = true;
                 break;
 
             case "EggCollectingFinished":
@@ -362,6 +367,7 @@ public class WorldProgression : MonoBehaviour
                 IncrementWorldChange();
                 shouldWaitForDialogue = true;
                 ResetOpacity();
+                pieReceived = true;
                 break;
 
             case "WeedingFinished":
@@ -379,6 +385,7 @@ public class WorldProgression : MonoBehaviour
                 IncrementWorldChange();
                 shouldWaitForDialogue = true;
                 ResetOpacity();
+                icoanaReceived = true;
                 break;
 
             case "Cozonac":
@@ -446,16 +453,17 @@ public class WorldProgression : MonoBehaviour
 
     private void CheckFinalCutsceneCondition()
     {
-        if (woodCollected && eggsCollected && weedsCollected && !finalCutsceneReady)
+        if (woodCollected && eggsCollected && weedsCollected
+            && fireWoodReceived && pieReceived && icoanaReceived
+            && !finalCutsceneReady)
         {
             finalCutsceneReady = true;
-            Debug.Log("All world tasks completed! Final cutscene location unlocked.");
+            Debug.Log("All world tasks AND rewards completed! Final cutscene location unlocked.");
 
             if (FinalCutsceneTriggerLocation != null)
             {
                 FinalCutsceneTriggerLocation.SetActive(true); // activate the collider
                 Debug.Log("FinalCutsceneTriggerLocation is now active.");
-
 
                 TantiGeta1.SetActive(false);
                 TantiGeta2.SetActive(false);
@@ -467,7 +475,6 @@ public class WorldProgression : MonoBehaviour
                 TantiNuti3.SetActive(true);
                 NeneaMarian3.SetActive(true);
 
-                // Show the note UI to guide the player
                 if (CelebrationNoteUI != null)
                 {
                     CelebrationNoteUI.SetActive(true);
