@@ -48,6 +48,11 @@ public class WorldProgression : MonoBehaviour
     public float waitBeforeReward = 5f;
     public float waitBeforeCutscene = 5f;
     public GameObject CelebrationNoteUI;
+    public GameObject WorldChangePp1;
+    public GameObject WorldChangePp2;
+    public GameObject WorldChangePp3;
+    public GameObject SomberPp;
+    public GameObject Snow; 
 
     [Header("Player Settings")]
     public MonoBehaviour playerMovement; // drag your player movement script here
@@ -287,6 +292,9 @@ public class WorldProgression : MonoBehaviour
         if (AudioPart3 != null)
             AudioPart3.SetActive(false);
 
+        if (AudioWorldChange != null)
+            AudioWorldChange.SetActive(false);
+
         if (WorldChangeCutScene != null)
             WorldChangeCutScene.gameObject.SetActive(false);
 
@@ -295,6 +303,9 @@ public class WorldProgression : MonoBehaviour
 
         if (WorldChangeCutScene3 != null)
             WorldChangeCutScene3.gameObject.SetActive(false);
+
+        if (AudioPart4 != null)
+            AudioPart4.SetActive(false);
 
         // Enable player movement
         if (playerMovement != null)
@@ -648,25 +659,42 @@ public class WorldProgression : MonoBehaviour
             case 1:
                 if (WorldChangeCutScene != null)
                     WorldChangeCutScene.gameObject.SetActive(true);
+                if (AudioWorldChange != null)
+                    AudioWorldChange.SetActive(true);
+                if (SomberPp != null)
+                    SomberPp.gameObject.SetActive(false);
+                if (WorldChangePp1 != null)
+                    WorldChangePp1.gameObject.SetActive(true);
                 StartCoroutine(FadeTextRoutine(WorldChangeCutScene, worldChangeDuration));
-                //  if (AudioWorldChange != null)
-                //     AudioWorldChange.SetActive(true);
+
                 break;
 
             case 2:
                 if (WorldChangeCutScene2 != null)
                     WorldChangeCutScene2.gameObject.SetActive(true);
+                if (AudioWorldChange != null)
+                    AudioWorldChange.SetActive(true);
+                if (WorldChangePp1 != null)
+                    WorldChangePp1.gameObject.SetActive(false);
+                if (WorldChangePp2 != null)
+                    WorldChangePp2.gameObject.SetActive(true);
+                if (Snow != null)
+                    Snow.gameObject.SetActive(false);
                 StartCoroutine(FadeTextRoutine(WorldChangeCutScene2, worldChangeDuration));
-                //  if (AudioPart4 != null)
-                //      AudioPart4.SetActive(true);
+         
                 break;
 
             case 3:
                 if (WorldChangeCutScene3 != null)
                     WorldChangeCutScene3.gameObject.SetActive(true);
+                if (AudioWorldChange != null)
+                    AudioWorldChange.SetActive(true);
+                if (WorldChangePp2 != null)
+                    WorldChangePp2.gameObject.SetActive(false);
+                if (WorldChangePp3 != null)
+                    WorldChangePp3.gameObject.SetActive(true);
                 StartCoroutine(FadeTextRoutine(WorldChangeCutScene3, worldChangeDuration));
-                //   if (AudioPart5 != null)
-                //      AudioPart5.SetActive(true);
+                
                 break;
         }
 
@@ -770,7 +798,8 @@ public class WorldProgression : MonoBehaviour
         if (CutSceneStoryPart4 != null)
             CutSceneStoryPart4.SetActive(true);
 
-
+        if (AudioPart4 != null)
+            AudioPart4.SetActive(true);
 
         StartCoroutine(FadeTextRoutine(CutSceneStoryPart4, finalCutsceneDuration));
 
