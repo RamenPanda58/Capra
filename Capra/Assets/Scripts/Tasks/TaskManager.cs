@@ -29,12 +29,6 @@ public class TaskManager : MonoBehaviour
         CurrentQuest.text = "You might want to " + (currentTask).TaskName;
     }
 
-    public void SetCurrentTask(TaskBase newTask)
-    {
-        CurrentTask = newTask;
-        newTask.StartTask();
-    }
-
     public bool TryPerformTask()
     {
         if (currentTask == null)
@@ -49,8 +43,6 @@ public class TaskManager : MonoBehaviour
             Debug.Log("You are not at the correct location.");
             return false;
         }
-
-        
 
         if (currentTask.CanPerform(currentLocation, currentTask.RequiredItem))
         {

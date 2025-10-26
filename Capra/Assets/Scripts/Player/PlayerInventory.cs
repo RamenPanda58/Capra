@@ -18,12 +18,16 @@ public class PlayerInventory : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public event System.Action OnInventoryChanged;
+
     public void AddItem(string itemName, int amount = 1)
     {
         if (items.ContainsKey(itemName))
             items[itemName] += amount;
         else
             items[itemName] = amount;
+
+        OnInventoryChanged?.Invoke();
     }
 
     public bool RemoveItem(string itemName, int amount = 1)
@@ -31,12 +35,15 @@ public class PlayerInventory : MonoBehaviour
         if (!items.ContainsKey(itemName)) return false;
 
         items[itemName] -= amount;
-
         if (items[itemName] <= 0)
             items.Remove(itemName);
 
+        OnInventoryChanged?.Invoke();
         return true;
     }
+
+    public Dictionary<string, int> GetAllItems() => new(items);
+
 
     public bool HasItem(string itemName, int amount = 1)
     {

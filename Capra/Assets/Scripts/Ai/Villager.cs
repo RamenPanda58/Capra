@@ -25,7 +25,6 @@ public class Villager : MonoBehaviour, IInteractable
         if (taskManager.currentTask == null && assignedTask != null)
         {
             taskManager.StartTask(assignedTask);
-            assignedTask.StartTask();
             return;
         }
 

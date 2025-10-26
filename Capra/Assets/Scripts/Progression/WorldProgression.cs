@@ -427,7 +427,7 @@ public class WorldProgression : MonoBehaviour
             case "Cozonac":
                 // Show the reward message immediately
                 ShowRewardMessage("You received a Cozonac!");
-
+                PlayerInventory.Instance.AddItem("Cozonac");
                 // Activate waiting visual
                 if (TantiGetaWaiting != null)
                     TantiGetaWaiting.SetActive(true);
