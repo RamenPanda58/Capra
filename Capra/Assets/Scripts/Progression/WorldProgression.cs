@@ -51,6 +51,10 @@ public class WorldProgression : MonoBehaviour
     public GameObject WorldChangePp1;
     public GameObject WorldChangePp2;
     public GameObject WorldChangePp3;
+    public GameObject WorldChangeSnow;
+    public GameObject WorldChangeSnow2;
+    public GameObject WorldChangePlants1;
+    public GameObject WorldChangePlants2;
     public GameObject SomberPp;
     public GameObject Snow; 
 
@@ -665,6 +669,12 @@ public class WorldProgression : MonoBehaviour
                     SomberPp.gameObject.SetActive(false);
                 if (WorldChangePp1 != null)
                     WorldChangePp1.gameObject.SetActive(true);
+                if (WorldChangeSnow != null)
+                    WorldChangeSnow.gameObject.SetActive(false);
+                if (WorldChangeSnow2 != null)
+                    WorldChangeSnow2.gameObject.SetActive(true);
+                if (WorldChangePlants1 != null)
+                    WorldChangePlants1.gameObject.SetActive(true);
                 StartCoroutine(FadeTextRoutine(WorldChangeCutScene, worldChangeDuration));
 
                 break;
@@ -680,6 +690,10 @@ public class WorldProgression : MonoBehaviour
                     WorldChangePp2.gameObject.SetActive(true);
                 if (Snow != null)
                     Snow.gameObject.SetActive(false);
+                if (WorldChangeSnow2 != null)
+                    WorldChangeSnow2.gameObject.SetActive(false);
+                if (WorldChangePlants2 != null)
+                    WorldChangePlants2.gameObject.SetActive(true);
                 StartCoroutine(FadeTextRoutine(WorldChangeCutScene2, worldChangeDuration));
          
                 break;
