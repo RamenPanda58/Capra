@@ -1,11 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Tasks/Woodcutting Task")]
-public class WoodcuttingTask : TaskBase
+[CreateAssetMenu(menuName = "Tasks/LetterFinding")]
+public class LetterFinding : TaskBase
 {
     [SerializeField] private int lettersRequired = 1;    // How much wood to collect
-    [SerializeField] private string letterItemName = "Wood"; // Item name to give player
-    [SerializeField] private string toolRequired = "Axe";  // Required item to perform task
+    [SerializeField] private string letterItemName = "Letter"; // Item name to give player
+    [SerializeField] private string toolRequired = "Piece of a letter";  // Required item to perform task
 
     public override void StartTask()
     {
@@ -26,13 +26,13 @@ public class WoodcuttingTask : TaskBase
         }
 
         PlayerInventory.Instance.AddItem(letterItemName, 1);
-        int currentWood = PlayerInventory.Instance.GetItemCount(letterItemName);
+        int currentLetters = PlayerInventory.Instance.GetItemCount(letterItemName);
 
-        Debug.Log($"You cut a {letterItemName}. You now have {currentWood}/{lettersRequired}.");
+        Debug.Log($"You cut a {letterItemName}. You now have {currentLetters}/{lettersRequired}.");
 
-        if (currentWood >= lettersRequired)
+        if (currentLetters >= lettersRequired)
         {
-            Debug.Log("You have collected enough wood!");
+            Debug.Log("You have collected all the letters! Go talk to Tanti Iana!");
             IsComplete = true;
             CompleteTask();
         }
@@ -41,9 +41,9 @@ public class WoodcuttingTask : TaskBase
     public override void CompleteTask()
     {
         TaskManager.completedTasks.Add(this);
-        WorldProgression.Instance.ApplyReward("WoodCuttingFinished");
-        PlayerInventory.Instance.RemoveItem("Axe");
-        Debug.Log("Woodcutting task completed!");
+        WorldProgression.Instance.ApplyReward("LetterFindingFinished");
+        PlayerInventory.Instance.RemoveItem("Piece of a letter");
+        Debug.Log("LetterFinding task completed!");
     }
 
 }
