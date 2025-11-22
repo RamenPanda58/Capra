@@ -56,7 +56,12 @@ public class WorldProgression : MonoBehaviour
     public GameObject WorldChangePlants1;
     public GameObject WorldChangePlants2;
     public GameObject SomberPp;
-    public GameObject Snow; 
+    public GameObject Snow;
+
+    [Header("World Progression Steps")]
+    public GameObject step1Changes;   // Things to enable at 2 letters
+    public GameObject step2Changes;   // Things to enable at 4 letters
+    public GameObject step3Changes;   // Things to enable at 6 letters
 
     [Header("Player Settings")]
     public MonoBehaviour playerMovement; // drag your player movement script here
@@ -468,7 +473,7 @@ public class WorldProgression : MonoBehaviour
 
         if (shouldWaitForDialogue && !dialogueJustEnded)
         {
-            Debug.Log("Dialogue not finished yet ó skipping reward display for now.");
+            Debug.Log("Dialogue not finished yet ÅEskipping reward display for now.");
             return;
         }
 
@@ -492,7 +497,41 @@ public class WorldProgression : MonoBehaviour
             dialogueJustEnded = false;
 
     }
+    public void ApplyProgression(int lettersCollected)
+    {
+        switch (lettersCollected)
+        {
+            case 2:
+                TriggerStep1();
+                break;
 
+            case 4:
+                TriggerStep2();
+                break;
+
+            case 6:
+                TriggerStep3();
+                break;
+        }
+    }
+
+    private void TriggerStep1()
+    {
+        Debug.Log("WORLD PROGRESSION STEP 1");
+        step1Changes.SetActive(true);
+    }
+
+    private void TriggerStep2()
+    {
+        Debug.Log("WORLD PROGRESSION STEP 2");
+        step2Changes.SetActive(true);
+    }
+
+    private void TriggerStep3()
+    {
+        Debug.Log("WORLD PROGRESSION STEP 3");
+        step3Changes.SetActive(true);
+    }
     private IEnumerator TantiGetaDelayedTransform(string rewardCode)
     {
         canGetTantiGetaReward = false;

@@ -37637,7 +37637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 196027739}
   capra: {fileID: 640984947}
-  lookThreshold: 30
+  lookThreshold: 60
 --- !u!4 &2034865356
 Transform:
   m_ObjectHideFlags: 0
