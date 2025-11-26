@@ -1,24 +1,19 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
-using System.Collections;
-using System.Security;
 
 public class WorldProgression : MonoBehaviour
 {
     public static WorldProgression Instance { get; private set; }
 
     [Header("World Change Progression")]
-    [SerializeField] private int worldChangeCounter = 0; // starts at 0
-    [SerializeField] private int maxWorldChanges = 3;
+
     [SerializeField] private float delayBeforeWorldCutscene = 2f;
 
     [Header("Villagers")]
-    public GameObject TantiNuti1;
-    public GameObject TantiNuti2;
-    public GameObject TantiNuti3;
-    public GameObject TantiMariana1;
-    public GameObject TantiMariana2;
-    public GameObject TantiMariana3;
+    public GameObject TantiIana1;
+    public GameObject TantiIana2;
+    public GameObject TantiIana3;
     public GameObject NeneaMarian1;
     public GameObject NeneaMarian2;
     public GameObject NeneaMarian3;
@@ -26,24 +21,24 @@ public class WorldProgression : MonoBehaviour
     public GameObject Capra2;
     // public GameObject ItemReward;
     public TextMeshProUGUI ItemRewardText;
-    [SerializeField] private GameObject TantiGetaWaiting;
+    [SerializeField] private GameObject TantiDidinaWaiting;
 
     [Header("CutScene Settings")]
     public GameObject CutSceneBackground;
-    public TextMeshProUGUI WorldChangeCutScene; // this is a cutscene for when you do a good deed and the world changes
-    public TextMeshProUGUI WorldChangeCutScene2;
-    public TextMeshProUGUI WorldChangeCutScene3;
+
+
     public GameObject AudioWorldChange;
     public TextMeshProUGUI CutSceneStoryPart1; // this is the starts of the story and you get off a bus
     public GameObject AudioPart1;
-    public GameObject CutSceneStoryPart2; // this is Capra's story
-    public GameObject AudioPart2;
-    public GameObject TantiDidinaCutScene; // tanti Didina's story
-    public GameObject AudioPart3;
+    public GameObject CutSceneStoryPart2; // this is Capra's story (let's make this onlt trygger a mologue audi)
+    public GameObject AudioPart2; //capra cutscene music 
+
     public GameObject CutSceneStoryPart4; // Before party cutscene you hear that Tanti Geta passed away, but people come and help
     public GameObject AudioPart4;
+
     public GameObject CutSceneStoryPart5; // End Cutscene where capra comes back and leaves happy, knowing there will be a next year
     public GameObject AudioPart5;
+
     public GameObject NightBeforeCelebrationCutScene;
     public float waitBeforeReward = 5f;
     public float waitBeforeCutscene = 5f;
@@ -72,21 +67,17 @@ public class WorldProgression : MonoBehaviour
     public float fadeSpeed = 3f; // smaller = slower fade
 
     private bool dialogueJustEnded = false;
-    private bool fireWoodReceived = false;
-    private bool pieReceived = false;
+ 
     private bool icoanaReceived = false;
 
 
 
     [Header("Character Interaction Settings")]
-    [SerializeField] private GameObject TantiGeta1; // initial model
-    [SerializeField] private GameObject TantiGeta2; // second model
-    [SerializeField] private GameObject TantiGeta3; // third model
-   // [SerializeField] private GameObject TantiGeta4; // fourth model
-   // [SerializeField] private int interactionsRequired = 3; // number of talks before triggering
-    [SerializeField] private GameObject TantiDidinaLocation; // the location where the cutscene should play
-    private bool tantiDidinaReady = false;
-    public GameObject Ielele;
+    [SerializeField] private GameObject TantiDidina1; // initial model
+    [SerializeField] private GameObject TantiDidina2; // second model
+    [SerializeField] private GameObject TantiDidina3; // third model
+
+    
     [SerializeField] private float cutsceneDelay = 1f; // optional delay before cutscene
 
    // private int currentInteractionCount = 0;
@@ -103,9 +94,8 @@ public class WorldProgression : MonoBehaviour
     private bool finalCutsceneReady = false;
     private bool finalCutscenePlayed = false;
 
-    private bool woodCollected = false;
-    private bool eggsCollected = false;
-    private bool weedsCollected = false;
+    private bool lettersCollected = false;
+    private bool tantiIanaPassed = false;
 
     public GameObject CelebrationLighting;
     public GameObject GlobalVolumeSomber;
@@ -283,35 +273,20 @@ public class WorldProgression : MonoBehaviour
         if (CutSceneStoryPart2 != null)
             CutSceneStoryPart2.gameObject.SetActive(false);
 
-        if (TantiDidinaCutScene != null)
-            TantiDidinaCutScene.gameObject.SetActive(false);
-
 
         if (CutSceneStoryPart4 != null)
             CutSceneStoryPart4.gameObject.SetActive(false);
 
-        Ielele.SetActive(false);
 
         if (AudioPart1 != null)
             AudioPart1.SetActive(false);
 
         if (AudioPart2 != null)
             AudioPart2.SetActive(false);
-
-        if (AudioPart3 != null)
-            AudioPart3.SetActive(false);
-
+    
         if (AudioWorldChange != null)
             AudioWorldChange.SetActive(false);
 
-        if (WorldChangeCutScene != null)
-            WorldChangeCutScene.gameObject.SetActive(false);
-
-        if (WorldChangeCutScene2 != null)
-            WorldChangeCutScene2.gameObject.SetActive(false);
-
-        if (WorldChangeCutScene3 != null)
-            WorldChangeCutScene3.gameObject.SetActive(false);
 
         if (AudioPart4 != null)
             AudioPart4.SetActive(false);
@@ -377,57 +352,10 @@ public class WorldProgression : MonoBehaviour
         ResetOpacity();
         switch (rewardCode)
         {
-            case "WoodCuttingFinished":
-                TantiNuti1.SetActive(false);
-                TantiNuti2.SetActive(true);
-                rewardMessage = "Wood collected!";
-                shouldPlayCutscene = false;
-                ResetOpacity();
-                woodCollected = true;
-                break;
-
-            case "FireWood":
-                rewardMessage = "You received FireWood!";
-                //  shouldPlayCutscene = true;
-                IncrementWorldChange();
-                shouldWaitForDialogue = true;
-                ResetOpacity();
-                fireWoodReceived = true;
-                break;
-
-            case "EggCollectingFinished":
-                TantiMariana1.SetActive(false);
-                TantiMariana2.SetActive(true);
-                rewardMessage = "Eggs collected!";
-                shouldPlayCutscene = false;
-                ResetOpacity();
-                eggsCollected = true;
-                break;
-
-            case "Pie":
-                rewardMessage = "You received a Pie!";
-                // Start delayed sequence for reward + cutscene
-                //         StartCoroutine(RewardDelaySequence());
-                // shouldPlayCutscene = true;
-                IncrementWorldChange();
-                shouldWaitForDialogue = true;
-                ResetOpacity();
-                pieReceived = true;
-                break;
-
-            case "WeedingFinished":
-                NeneaMarian1.SetActive(false);
-                NeneaMarian2.SetActive(true);
-                rewardMessage = "Weeds collected!";
-                shouldPlayCutscene = false;
-                ResetOpacity();
-                weedsCollected = true;
-                break;
 
             case "Icoana":
                 rewardMessage = "You received an Icoana!";
                 //  shouldPlayCutscene = true;
-                IncrementWorldChange();
                 shouldWaitForDialogue = true;
                 ResetOpacity();
                 icoanaReceived = true;
@@ -438,8 +366,8 @@ public class WorldProgression : MonoBehaviour
                 ShowRewardMessage("You received a Cozonac!");
                 PlayerInventory.Instance.AddItem("Cozonac");
                 // Activate waiting visual
-                if (TantiGetaWaiting != null)
-                    TantiGetaWaiting.SetActive(true);
+                if (TantiDidinaWaiting != null)
+                    TantiDidinaWaiting.SetActive(true);
 
                 // Start cooldown / delayed transform
                 StartCoroutine(TantiGetaDelayedTransform(rewardCode));
@@ -448,8 +376,8 @@ public class WorldProgression : MonoBehaviour
             case "DriedPlants":
                 ShowRewardMessage("You received dried plants!");
 
-                if (TantiGetaWaiting != null)
-                    TantiGetaWaiting.SetActive(true);
+                if (TantiDidinaWaiting != null)
+                    TantiDidinaWaiting.SetActive(true);
 
                 StartCoroutine(TantiGetaDelayedTransform(rewardCode));
                 break;
@@ -457,8 +385,8 @@ public class WorldProgression : MonoBehaviour
             case "Basma":
                 ShowRewardMessage("You received a basma!");
 
-                if (TantiGetaWaiting != null)
-                    TantiGetaWaiting.SetActive(true);
+                if (TantiDidinaWaiting != null)
+                    TantiDidinaWaiting.SetActive(true);
 
                 StartCoroutine(TantiGetaDelayedTransform(rewardCode));
                 break;
@@ -519,46 +447,80 @@ public class WorldProgression : MonoBehaviour
     {
         Debug.Log("WORLD PROGRESSION STEP 1");
         step1Changes.SetActive(true);
+
+        if (AudioWorldChange != null)
+            AudioWorldChange.SetActive(true);
+        if (SomberPp != null)
+            SomberPp.gameObject.SetActive(false);
+        if (WorldChangePp1 != null)
+            WorldChangePp1.gameObject.SetActive(true);
+        if (WorldChangeSnow != null)
+            WorldChangeSnow.gameObject.SetActive(false);
+        if (WorldChangeSnow2 != null)
+            WorldChangeSnow2.gameObject.SetActive(true);
+        if (WorldChangePlants1 != null)
+            WorldChangePlants1.gameObject.SetActive(true);
+
     }
 
     private void TriggerStep2()
     {
         Debug.Log("WORLD PROGRESSION STEP 2");
         step2Changes.SetActive(true);
+
+        if (AudioWorldChange != null)
+            AudioWorldChange.SetActive(true);
+        if (WorldChangePp1 != null)
+            WorldChangePp1.gameObject.SetActive(false);
+        if (WorldChangePp2 != null)
+            WorldChangePp2.gameObject.SetActive(true);
+        if (Snow != null)
+            Snow.gameObject.SetActive(false);
+        if (WorldChangeSnow2 != null)
+            WorldChangeSnow2.gameObject.SetActive(false);
+        if (WorldChangePlants2 != null)
+            WorldChangePlants2.gameObject.SetActive(true);
+
     }
 
     private void TriggerStep3()
     {
         Debug.Log("WORLD PROGRESSION STEP 3");
         step3Changes.SetActive(true);
+
+        if (AudioWorldChange != null)
+            AudioWorldChange.SetActive(true);
+        if (WorldChangePp2 != null)
+            WorldChangePp2.gameObject.SetActive(false);
+        if (WorldChangePp3 != null)
+            WorldChangePp3.gameObject.SetActive(true);
+
     }
+
     private IEnumerator TantiGetaDelayedTransform(string rewardCode)
     {
         canGetTantiGetaReward = false;
         yield return new WaitForSeconds(tantiGetaCooldown);
 
         // Hide waiting visual
-        if (TantiGetaWaiting != null)
-            TantiGetaWaiting.SetActive(false);
+        if (TantiDidinaWaiting != null)
+            TantiDidinaWaiting.SetActive(false);
 
         // Transform the TantiGeta model or unlock Basma
         switch (rewardCode)
         {
             case "Cozonac":
-                TantiGeta1.SetActive(false);
-                TantiGeta2.SetActive(true);
+                TantiDidina1.SetActive(false);
+                TantiDidina2.SetActive(true);
                 break;
 
             case "DriedPlants":
-                TantiGeta2.SetActive(false);
-                TantiGeta3.SetActive(true);
+                TantiDidina2.SetActive(false);
+                TantiDidina3.SetActive(true);
                 break;
 
             case "Basma":
-                tantiDidinaReady = true;
-                Ielele.SetActive(true);
-                if (TantiDidinaLocation != null)
-                    TantiDidinaLocation.SetActive(true);
+            
                 break;
         }
 
@@ -566,10 +528,10 @@ public class WorldProgression : MonoBehaviour
     }
 
 
+    // here we are making it possible to schow the end cutscene if Iana passed away and you've collected all the letters and go to your home
     private void CheckFinalCutsceneCondition()
     {
-        if (woodCollected && eggsCollected && weedsCollected
-            && fireWoodReceived && pieReceived && icoanaReceived
+        if (lettersCollected && tantiIanaPassed
             && !finalCutsceneReady)
         {
             finalCutsceneReady = true;
@@ -580,21 +542,24 @@ public class WorldProgression : MonoBehaviour
                 FinalCutsceneTriggerLocation.SetActive(true); // activate the collider
                 Debug.Log("FinalCutsceneTriggerLocation is now active.");
 
-                TantiGeta1.SetActive(false);
-                TantiGeta2.SetActive(false);
-                TantiGeta3.SetActive(false);
-                TantiMariana2.SetActive(false);
-                TantiNuti2.SetActive(false);
+                TantiDidina1.SetActive(false);
+                TantiDidina2.SetActive(false);
+                TantiDidina3.SetActive(false);
+                TantiIana1.SetActive(false);
+                TantiIana2.SetActive(false);
+                TantiIana3.SetActive(false);
+                NeneaMarian1.SetActive(false);
                 NeneaMarian2.SetActive(false);
-                TantiMariana3.SetActive(true);
-                TantiNuti3.SetActive(true);
-                NeneaMarian3.SetActive(true);
-
+                NeneaMarian3.SetActive(false);
+/*
                 if (CelebrationNoteUI != null)
                 {
                     CelebrationNoteUI.SetActive(true);
                     Debug.Log("Celebration Note UI is now active to guide the player.");
                 }
+*/
+// this element was to show a note before reaching the final cutscene trigger location so if i still need it i can use it
+
             }
         }
     }
@@ -614,17 +579,6 @@ public class WorldProgression : MonoBehaviour
         ItemRewardText.color = c;
     }
 
-    private void IncrementWorldChange()
-    {
-        if (worldChangeCounter >= maxWorldChanges)
-            return;
-
-        worldChangeCounter++;
-        Debug.Log($"World Change Count increased to: {worldChangeCounter}");
-
-        StartCoroutine(PlayWorldChangeCutScene(worldChangeCounter));
-
-    }
 
     private void ShowRewardMessage(string message)
     {
@@ -673,92 +627,17 @@ public class WorldProgression : MonoBehaviour
         // Wait before world-change cutscene
         yield return new WaitForSeconds(waitBeforeCutscene);
 
-        // Play world-change cutscene
-        StartCoroutine(PlayWorldChangeCutScene(worldChangeCounter));
-
-
-        // ItemReward.SetActive(false);
     }
 
 
-
-    private IEnumerator PlayWorldChangeCutScene(int stage)
-    {
-        yield return new WaitForSeconds(delayBeforeWorldCutscene);
-
-        // Disable player movement during cutscene
-        if (playerMovement != null)
-            playerMovement.enabled = false;
-
-        if (vCamera != null)
-            vCamera.lockCamera = true;
-
-        // Show background
-        if (CutSceneBackground != null)
-            CutSceneBackground.SetActive(true);
-
-        switch (stage)
-        {
-            case 1:
-                if (WorldChangeCutScene != null)
-                    WorldChangeCutScene.gameObject.SetActive(true);
-                if (AudioWorldChange != null)
-                    AudioWorldChange.SetActive(true);
-                if (SomberPp != null)
-                    SomberPp.gameObject.SetActive(false);
-                if (WorldChangePp1 != null)
-                    WorldChangePp1.gameObject.SetActive(true);
-                if (WorldChangeSnow != null)
-                    WorldChangeSnow.gameObject.SetActive(false);
-                if (WorldChangeSnow2 != null)
-                    WorldChangeSnow2.gameObject.SetActive(true);
-                if (WorldChangePlants1 != null)
-                    WorldChangePlants1.gameObject.SetActive(true);
-                StartCoroutine(FadeTextRoutine(WorldChangeCutScene, worldChangeDuration));
-
-                break;
-
-            case 2:
-                if (WorldChangeCutScene2 != null)
-                    WorldChangeCutScene2.gameObject.SetActive(true);
-                if (AudioWorldChange != null)
-                    AudioWorldChange.SetActive(true);
-                if (WorldChangePp1 != null)
-                    WorldChangePp1.gameObject.SetActive(false);
-                if (WorldChangePp2 != null)
-                    WorldChangePp2.gameObject.SetActive(true);
-                if (Snow != null)
-                    Snow.gameObject.SetActive(false);
-                if (WorldChangeSnow2 != null)
-                    WorldChangeSnow2.gameObject.SetActive(false);
-                if (WorldChangePlants2 != null)
-                    WorldChangePlants2.gameObject.SetActive(true);
-                StartCoroutine(FadeTextRoutine(WorldChangeCutScene2, worldChangeDuration));
-         
-                break;
-
-            case 3:
-                if (WorldChangeCutScene3 != null)
-                    WorldChangeCutScene3.gameObject.SetActive(true);
-                if (AudioWorldChange != null)
-                    AudioWorldChange.SetActive(true);
-                if (WorldChangePp2 != null)
-                    WorldChangePp2.gameObject.SetActive(false);
-                if (WorldChangePp3 != null)
-                    WorldChangePp3.gameObject.SetActive(true);
-                StartCoroutine(FadeTextRoutine(WorldChangeCutScene3, worldChangeDuration));
-                
-                break;
-        }
-
-        //StartCoroutine(FadeTextRoutine());
-    }
 
 
     public void PlayCapraCutscene()
     {
         if (CapraStoryPlayed) return;
         CapraStoryPlayed = true;
+
+        /*
 
         // Disable player movement
         if (playerMovement != null)
@@ -767,59 +646,18 @@ public class WorldProgression : MonoBehaviour
         // Lock camera if using vThirdPersonCamera
         if (vCamera != null)
             vCamera.lockCamera = true;
-
+*/
 
         // Optional: Play audio if assigned
         if (AudioPart2 != null)
             AudioPart2.SetActive(true);
 
-        // Show backrgound cutscene UI
-        if (CutSceneBackground != null)
-            CutSceneBackground.SetActive(true);
-
-        // Show story cutscene UI
-        if (CutSceneStoryPart2 != null)
-            CutSceneStoryPart2.gameObject.SetActive(true);
 
 
-        StartCoroutine(FadeTextRoutine(CutSceneStoryPart2, capraDuration));
+        //StartCoroutine(FadeTextRoutine(CutSceneStoryPart2, capraDuration));
     }
 
-    public void TriggerTantiDidinaCutscene()
-    {
-        if (!tantiDidinaReady) return; // Only trigger if player got the Basma
-        if (TantiDidinaCutScene == null) return;
-
-        Debug.Log("Tanti Didina cutscene triggered!");
-
-        // Disable player movement
-        if (playerMovement != null)
-            playerMovement.enabled = false;
-
-        if (vCamera != null)
-            vCamera.lockCamera = true;
-
-        // Activate cutscene visuals
-        if (CutSceneBackground != null)
-            CutSceneBackground.SetActive(true);
-
-        TantiDidinaCutScene.SetActive(true);
-
-        if (AudioPart3 != null)
-            AudioPart3.SetActive(true);
-
-        // Optional: use your fade routine
-        StartCoroutine(FadeTextRoutine(TantiDidinaCutScene, tantiDidinaDuration));
-
-        // Prevent retriggering
-        tantiDidinaReady = false;
-
-        // Disable location so it doesn’t trigger again
-        if (TantiDidinaLocation != null)
-            TantiDidinaLocation.SetActive(false);
-
-        StartCoroutine(FadeTextRoutine(TantiDidinaCutScene, tantiDidinaDuration));
-    }
+   
 
     private void OnTriggerEnter(Collider other)
     {
