@@ -21,6 +21,7 @@ public class Letter : Interactable, IReadable
     public void Read()
     {
         letterUIPanel.SetActive(true);
+        uiText.enabled = true;
         uiText.text = letterText;
     }
 
@@ -28,5 +29,6 @@ public class Letter : Interactable, IReadable
     {
         if (letterUIPanel != null)
             letterUIPanel.SetActive(false);
+        uiText.enabled = false; 
     }
 }

@@ -10,7 +10,7 @@ public class LetterFinding : TaskBase
     public override void StartTask()
     {
         Debug.Log($"Go to {TargetLocationName} with an {toolRequired}.");
-        PlayerInventory.Instance.AddItem("Axe");
+        PlayerInventory.Instance.AddItem("Piece of a letter");
         IsComplete = false;
     }
 

@@ -11,7 +11,6 @@ public class TaskInteractable : Interactable
     private TaskManager taskManager;
 
     [Header("Interaction Prompt Settings")]
-    [SerializeField] private string promptMessage = "Press E";
     [SerializeField] private float fadeDuration = 0.3f;
     
 
