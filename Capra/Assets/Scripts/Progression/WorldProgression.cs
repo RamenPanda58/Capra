@@ -431,6 +431,7 @@ public class WorldProgression : MonoBehaviour
         {
             case 2:
                 TriggerStep1();
+                Debug.Log("2 are collected");
                 break;
 
             case 4:
@@ -446,7 +447,7 @@ public class WorldProgression : MonoBehaviour
     private void TriggerStep1()
     {
         Debug.Log("WORLD PROGRESSION STEP 1");
-        step1Changes.SetActive(true);
+        //step1Changes.SetActive(true);
 
         if (AudioWorldChange != null)
             AudioWorldChange.SetActive(true);
@@ -466,7 +467,7 @@ public class WorldProgression : MonoBehaviour
     private void TriggerStep2()
     {
         Debug.Log("WORLD PROGRESSION STEP 2");
-        step2Changes.SetActive(true);
+        //step2Changes.SetActive(true);
 
         if (AudioWorldChange != null)
             AudioWorldChange.SetActive(true);
@@ -486,7 +487,7 @@ public class WorldProgression : MonoBehaviour
     private void TriggerStep3()
     {
         Debug.Log("WORLD PROGRESSION STEP 3");
-        step3Changes.SetActive(true);
+        //step3Changes.SetActive(true);
 
         if (AudioWorldChange != null)
             AudioWorldChange.SetActive(true);

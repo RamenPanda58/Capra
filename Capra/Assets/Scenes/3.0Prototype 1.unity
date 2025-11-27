@@ -6079,7 +6079,6 @@ GameObject:
   - component: {fileID: 94928648}
   - component: {fileID: 94928647}
   - component: {fileID: 94928646}
-  - component: {fileID: 94928645}
   - component: {fileID: 94928644}
   - component: {fileID: 94928649}
   m_Layer: 6
@@ -6125,21 +6124,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.9788804, y: 3.020744, z: 1.3380833}
   m_Center: {x: 0.04196763, y: -0.21918952, z: 0.018639565}
---- !u!114 &94928645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94928642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c8db2ffacbbf914e8aef946727f3107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptMessage: Press E to collect, R to read and Esc to close
-  destroyOnInteract: 1
-  fadeDuration: 0.3
 --- !u!65 &94928646
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6230,6 +6214,7 @@ MonoBehaviour:
   letterText: Letter 2
   letterUIPanel: {fileID: 545061947}
   uiText: {fileID: 840934123}
+  fadeDuration: 0.3
 --- !u!1001 &94970278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19819,7 +19804,6 @@ GameObject:
   - component: {fileID: 432936269}
   - component: {fileID: 432936268}
   - component: {fileID: 432936267}
-  - component: {fileID: 432936266}
   - component: {fileID: 432936265}
   - component: {fileID: 432936270}
   m_Layer: 6
@@ -19865,21 +19849,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.9788804, y: 3.020744, z: 1.3380833}
   m_Center: {x: 0.04196763, y: -0.21918952, z: 0.018639565}
---- !u!114 &432936266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 432936263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c8db2ffacbbf914e8aef946727f3107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptMessage: Press E to collect, R to read and Esc to close
-  destroyOnInteract: 1
-  fadeDuration: 0.3
 --- !u!65 &432936267
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19972,6 +19941,7 @@ MonoBehaviour:
 '
   letterUIPanel: {fileID: 545061947}
   uiText: {fileID: 840934123}
+  fadeDuration: 0.3
 --- !u!1 &433488057
 GameObject:
   m_ObjectHideFlags: 0
@@ -31582,7 +31552,6 @@ GameObject:
   - component: {fileID: 553112444}
   - component: {fileID: 553112443}
   - component: {fileID: 553112442}
-  - component: {fileID: 553112441}
   - component: {fileID: 553112440}
   - component: {fileID: 553112445}
   m_Layer: 6
@@ -31628,21 +31597,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.9788804, y: 3.020744, z: 1.3380833}
   m_Center: {x: 0.04196763, y: -0.21918952, z: 0.018639565}
---- !u!114 &553112441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553112438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c8db2ffacbbf914e8aef946727f3107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptMessage: Press E to collect, R to read and Esc to close
-  destroyOnInteract: 1
-  fadeDuration: 0.3
 --- !u!65 &553112442
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31735,6 +31689,7 @@ MonoBehaviour:
 '
   letterUIPanel: {fileID: 545061947}
   uiText: {fileID: 840934123}
+  fadeDuration: 0.3
 --- !u!1 &554107449
 GameObject:
   m_ObjectHideFlags: 0
@@ -46440,7 +46395,8 @@ PrefabInstance:
       propertyPath: locationName
       value: LetterFindingLocation
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3304879620296324010, guid: 6770888a1ad2f05408c23a48cee0fa85, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6941640345223903678, guid: 6770888a1ad2f05408c23a48cee0fa85, type: 3}
     - {fileID: 1607262775545407697, guid: 6770888a1ad2f05408c23a48cee0fa85, type: 3}
@@ -51980,6 +51936,7 @@ Transform:
   - {fileID: 1061419281}
   - {fileID: 413185082}
   - {fileID: 1539262513}
+  - {fileID: 1221818680}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &970315977
@@ -57766,7 +57723,6 @@ GameObject:
   - component: {fileID: 1107824665}
   - component: {fileID: 1107824664}
   - component: {fileID: 1107824663}
-  - component: {fileID: 1107824662}
   - component: {fileID: 1107824661}
   - component: {fileID: 1107824666}
   m_Layer: 6
@@ -57812,21 +57768,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.9788804, y: 3.020744, z: 1.3380833}
   m_Center: {x: 0.04196763, y: -0.21918952, z: 0.018639565}
---- !u!114 &1107824662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1107824659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c8db2ffacbbf914e8aef946727f3107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptMessage: Press E to collect, R to read and Esc to close
-  destroyOnInteract: 1
-  fadeDuration: 0.3
 --- !u!65 &1107824663
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -57917,6 +57858,7 @@ MonoBehaviour:
   letterText: Letter 5
   letterUIPanel: {fileID: 545061947}
   uiText: {fileID: 840934123}
+  fadeDuration: 0.3
 --- !u!4 &1108964742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a157d832f0bf5b349b6390ab6c8a79d8, type: 3}
@@ -63498,6 +63440,52 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1218306046}
   m_Mesh: {fileID: 2755085477392647438, guid: cb68f19949dfdd54396755095f3ccc74, type: 3}
+--- !u!1 &1221818679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1221818680}
+  - component: {fileID: 1221818681}
+  m_Layer: 0
+  m_Name: LetterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1221818680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221818679}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 969974948}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1221818681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221818679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe50b79e603b0f4dbc836dec8b45c65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lettersCollected: 0
+  totalLetters: 7
 --- !u!1 &1222906258
 GameObject:
   m_ObjectHideFlags: 0
@@ -72180,6 +72168,7 @@ MonoBehaviour:
   letterText: Letter 1
   letterUIPanel: {fileID: 545061947}
   uiText: {fileID: 840934123}
+  fadeDuration: 0.3
 --- !u!1 &1397685399
 GameObject:
   m_ObjectHideFlags: 0
@@ -79182,7 +79171,6 @@ GameObject:
   - component: {fileID: 1575948990}
   - component: {fileID: 1575948989}
   - component: {fileID: 1575948988}
-  - component: {fileID: 1575948987}
   - component: {fileID: 1575948986}
   - component: {fileID: 1575948991}
   m_Layer: 6
@@ -79228,21 +79216,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 12.98208, y: 3.0207438, z: 2.0047174}
   m_Center: {x: 0.04311136, y: -0.21918954, z: -0.31467745}
---- !u!114 &1575948987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575948984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c8db2ffacbbf914e8aef946727f3107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptMessage: Press E to collect, R to read and Esc to close
-  destroyOnInteract: 1
-  fadeDuration: 0.3
 --- !u!65 &1575948988
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -79333,6 +79306,7 @@ MonoBehaviour:
   letterText: Letter 6
   letterUIPanel: {fileID: 545061947}
   uiText: {fileID: 840934123}
+  fadeDuration: 0.3
 --- !u!1 &1578142607
 GameObject:
   m_ObjectHideFlags: 0
@@ -89753,7 +89727,6 @@ GameObject:
   - component: {fileID: 1818934627}
   - component: {fileID: 1818934626}
   - component: {fileID: 1818934625}
-  - component: {fileID: 1818934624}
   - component: {fileID: 1818934623}
   - component: {fileID: 1818934628}
   m_Layer: 6
@@ -89799,21 +89772,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.9788804, y: 3.020744, z: 1.3380833}
   m_Center: {x: 0.04196763, y: -0.21918952, z: 0.018639565}
---- !u!114 &1818934624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818934621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c8db2ffacbbf914e8aef946727f3107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptMessage: Press E to collect, R to read and Esc to close
-  destroyOnInteract: 1
-  fadeDuration: 0.3
 --- !u!65 &1818934625
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -89904,6 +89862,7 @@ MonoBehaviour:
   letterText: Letter 7
   letterUIPanel: {fileID: 545061947}
   uiText: {fileID: 840934123}
+  fadeDuration: 0.3
 --- !u!1 &1819760655
 GameObject:
   m_ObjectHideFlags: 0
