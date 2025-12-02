@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4a308dae7ffd048a8b0eb8d5ae4a02, type: 3}
   m_Name: Tanti Iana
   m_EditorClassIdentifier: 
-  characterPhoto: {fileID: 21300000, guid: f3d40f15baf1b064ab42489db0ab708e, type: 3}
+  characterPhoto: {fileID: 21300000, guid: c52d315209ada3e48b5c260eac56b0a6, type: 3}
   characterName: Tanti Iana

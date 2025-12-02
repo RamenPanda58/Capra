@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4a308dae7ffd048a8b0eb8d5ae4a02, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  characterPhoto: {fileID: 21300000, guid: 392b012963041c44cbde2a038c674ade, type: 3}
-  characterName: Player
+  characterPhoto: {fileID: 21300000, guid: a05c4a7203487ab41ba30a3e532b793c, type: 3}
+  characterName: Maria
