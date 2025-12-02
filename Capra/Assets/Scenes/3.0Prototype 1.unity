@@ -78922,6 +78922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1500204690}
   - component: {fileID: 1500204692}
+  - component: {fileID: 1500204693}
   - component: {fileID: 1500204691}
   m_Layer: 5
   m_Name: CutSceneStoryPart1
@@ -79055,6 +79056,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500204689}
   m_CullTransparentMesh: 1
+--- !u!114 &1500204693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500204689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83125b341e512fe42bf43eb6c99aa372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charactersPerSecond: 20
+  punctuationDelay: 0.3
+  allowSkip: 1
+  skipKey: 324
 --- !u!1001 &1501385374
 PrefabInstance:
   m_ObjectHideFlags: 0
