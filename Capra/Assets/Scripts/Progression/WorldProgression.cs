@@ -462,6 +462,8 @@ public class WorldProgression : MonoBehaviour
         if (WorldChangePlants1 != null)
             WorldChangePlants1.gameObject.SetActive(true);
 
+        TantiIana1.SetActive(false);
+        TantiIana3.SetActive(true);
     }
 
     private void TriggerStep2()
@@ -495,6 +497,11 @@ public class WorldProgression : MonoBehaviour
             WorldChangePp2.gameObject.SetActive(false);
         if (WorldChangePp3 != null)
             WorldChangePp3.gameObject.SetActive(true);
+
+        TantiDidina1.SetActive(false);
+        TantiDidina2.SetActive(false);
+        TantiDidina3.SetActive(true);
+
 
     }
 
