@@ -1,12 +1,11 @@
 using UnityEngine;
 using TMPro;
-using System.Collections;
 
 public class DayNightCycle : MonoBehaviour
 {
-    [Header("Cycle Durations (seconds)")]
-    public float dayDuration = 240f;
-    public float nightDuration = 240f;
+    [Header("Time of Day (0–24 hours)")]
+    [Range(0f, 24f)]
+    public float timeOfDay = 12f;   // Controlled by slider
 
     [Header("Sun Settings")]
     public Transform sunPivot;
@@ -19,255 +18,49 @@ public class DayNightCycle : MonoBehaviour
     public Color ambientDayColor = Color.white;
     public Color ambientNightColor = new Color(0.1f, 0.1f, 0.2f);
 
-    [Header("Start Time Settings")]
-    [Range(0f, 24f)] public float startHour = 17f;
-
-    [Header("Day Counter")]
-    public int dayCount = 0;
-
-    [Header("UI")]
-    public GameObject dialogueUI;
-    public GameObject interactionPromptUI; // drag the Press E UI here
-    public GameObject nightSkipMessageUI;
-
-    [Header("Environment GameObjects")]
-    public GameObject dayBirdsObject;
-    public GameObject nightBirdsObject;
+    [Header("Villager Settings (optional)")]
     public GameObject villagersObject;
+    public float villagerStartHour = 6.5f;
+    public float villagerEndHour = 20f;
 
-    [Header("Morning Message UI")]
-    public GameObject morningMessageBackground;
-    public TMP_Text morningMessageText;
-    public float morningMessageDuration = 3f;
-
-    private bool isDay;
-    private float timer;
-    private float currentPhaseDuration;
-    private bool hasShownMorningMessage = false;
-
-    public System.Action OnNewDay;
-
-    private const float dayStartHour = 6.5f;
-    private const float nightStartHour = 20f;
-
-    private Coroutine morningMessageRoutine;
-    private CanvasGroup backgroundCanvasGroup;
-
-    void Start()
-    {
-        if (morningMessageBackground != null)
-            backgroundCanvasGroup = morningMessageBackground.GetComponent<CanvasGroup>();
-
-        if (startHour >= dayStartHour && startHour < nightStartHour)
-        {
-            isDay = true;
-            currentPhaseDuration = dayDuration;
-            timer = ((startHour - dayStartHour) / (nightStartHour - dayStartHour)) * dayDuration;
-        }
-        else
-        {
-            isDay = false;
-            currentPhaseDuration = nightDuration;
-            float adjustedHour = (startHour >= nightStartHour) ? startHour - nightStartHour : startHour + (24f - nightStartHour);
-            timer = (adjustedHour / ((24f - nightStartHour) + dayStartHour)) * nightDuration;
-        }
-
-        UpdateLightingInstant();
-        UpdateEnvironmentObjects();
-        HideMorningMessageInstant();
-    }
+    [Header("UI Clock (optional)")]
+    public TMP_Text timeText;
 
     void Update()
     {
-        timer += Time.deltaTime;
+        UpdateLighting();
+    
+        UpdateClockUI();
+    }
 
-        if (timer >= currentPhaseDuration)
-        {
-            if (isDay) StartNight();
-            else StartDay();
-        }
+    private void UpdateLighting()
+    {
+        float normalizedTime = timeOfDay / 24f;
+        float sunRotation = Mathf.Lerp(-90f, 270f, normalizedTime);
 
-        float t = Mathf.Clamp01(timer / currentPhaseDuration);
-        float sunRotation = isDay ? Mathf.Lerp(-90f, 90f, t) : Mathf.Lerp(90f, 270f, t);
-        sunPivot.localRotation = Quaternion.Euler(sunRotation, 0f, sunTilt);
+        if (sunPivot != null)
+            sunPivot.localRotation = Quaternion.Euler(sunRotation, 0f, sunTilt);
 
-        float colorT = isDay ? t : 1f - t;
-        directionalLight.color = Color.Lerp(nightColor, dayColor, colorT);
-        RenderSettings.ambientLight = Color.Lerp(ambientNightColor, ambientDayColor, colorT);
+        float lightT = Mathf.Clamp01(Mathf.Sin(normalizedTime * Mathf.PI * 2f));
 
-        float currentHour = CalculateCurrentHour();
+        if (directionalLight != null)
+            directionalLight.color = Color.Lerp(nightColor, dayColor, lightT);
 
-        if (isDay)
-        {
-            if (!hasShownMorningMessage && currentHour >= 6f && currentHour < 7f)
-            {
-                hasShownMorningMessage = true;
-                ShowMorningMessage("It's day " + dayCount + "! Let's make the most out of it!");
-            }
-        }
+        RenderSettings.ambientLight = Color.Lerp(ambientNightColor, ambientDayColor, lightT);
+    }
 
-        //  Villager activation condition
-        if (villagersObject != null)
-        {
-            bool shouldBeActive = isDay && currentHour >= 6.5f && currentHour < nightStartHour;
-            if (villagersObject.activeSelf != shouldBeActive)
-                villagersObject.SetActive(shouldBeActive);
-        }
+   
 
-        if (Time.frameCount % 60 == 0)
-        {
-            string phase = isDay ? "Day" : "Night";
-            Debug.Log("[" + phase + "] Current Time: " + FormatTime(currentHour) + " | Day: " + dayCount);
-        }
-
-        // DEBUG: Skip to next day at night
-        if (!isDay && Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("[DEBUG] Skipping night to next day...");
-            StartDay();
-        }
-
+    private void UpdateClockUI()
+    {
+        if (timeText != null)
+            timeText.text = FormatTime(timeOfDay);
     }
 
     private string FormatTime(float hour)
     {
         int h = Mathf.FloorToInt(hour);
         int m = Mathf.FloorToInt((hour - h) * 60f);
-        return h.ToString("00") + ":" + m.ToString("00");
+        return $"{h:00}:{m:00}";
     }
-
-    private void StartDay()
-    {
-        isDay = true;
-        currentPhaseDuration = dayDuration;
-        timer = 0f;
-
-        if (dayCount > 0 || startHour < dayStartHour || startHour >= nightStartHour)
-        {
-            dayCount++;
-            OnNewDay?.Invoke();
-        }
-        else
-        {
-            dayCount = 1;
-            OnNewDay?.Invoke();
-        }
-
-        hasShownMorningMessage = false;
-        UpdateEnvironmentObjects();
-    }
-
-    private void StartNight()
-    {
-        isDay = false;
-        currentPhaseDuration = nightDuration;
-        timer = 0f;
-        UpdateEnvironmentObjects();
-    }
-
-    private void UpdateEnvironmentObjects()
-    {
-        if (dialogueUI != null)
-            dialogueUI.SetActive(isDay);
-
-        if (dayBirdsObject != null)
-            dayBirdsObject.SetActive(isDay);
-        if (nightBirdsObject != null)
-            nightBirdsObject.SetActive(!isDay);
-
-        if (interactionPromptUI != null)
-        {
-            interactionPromptUI.SetActive(isDay);
-        }
-
-        if (nightSkipMessageUI != null)
-        {
-            nightSkipMessageUI.SetActive(!isDay); // show only at night
-        }
-
-
-        // villagers handled dynamically in Update()
-    }
-
-    private float CalculateCurrentHour()
-    {
-        if (isDay)
-        {
-            float t = Mathf.Clamp01(timer / dayDuration);
-            return Mathf.Lerp(dayStartHour, nightStartHour, t);
-        }
-        else
-        {
-            float t = Mathf.Clamp01(timer / nightDuration);
-            float hour = Mathf.Lerp(nightStartHour, 29f, t);
-            if (hour >= 24f) hour -= 24f;
-            return hour;
-        }
-    }
-
-    private void ShowMorningMessage(string message)
-    {
-        if (morningMessageRoutine != null)
-            StopCoroutine(morningMessageRoutine);
-
-        morningMessageRoutine = StartCoroutine(MorningMessageRoutine(message));
-    }
-
-    private IEnumerator MorningMessageRoutine(string message)
-    {
-        if (morningMessageBackground == null || morningMessageText == null)
-            yield break;
-
-        if (backgroundCanvasGroup == null)
-            backgroundCanvasGroup = morningMessageBackground.GetComponent<CanvasGroup>();
-
-        morningMessageBackground.SetActive(true);
-        morningMessageText.text = message;
-
-        yield return StartCoroutine(FadeCanvasGroup(backgroundCanvasGroup, 0f, 1f, 0.5f));
-
-        yield return new WaitForSeconds(morningMessageDuration);
-
-        yield return StartCoroutine(FadeCanvasGroup(backgroundCanvasGroup, 1f, 0f, 0.5f));
-
-        morningMessageBackground.SetActive(false);
-        morningMessageText.text = "";
-    }
-
-    private IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float duration)
-    {
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            cg.alpha = Mathf.Lerp(start, end, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        cg.alpha = end;
-    }
-
-    private void HideMorningMessageInstant()
-    {
-        if (backgroundCanvasGroup != null)
-            backgroundCanvasGroup.alpha = 0f;
-        if (morningMessageBackground != null)
-            morningMessageBackground.SetActive(false);
-        if (morningMessageText != null)
-            morningMessageText.text = "";
-    }
-
-    private void UpdateLightingInstant()
-    {
-        float t = Mathf.Clamp01(timer / currentPhaseDuration);
-        float sunRotation = isDay ? Mathf.Lerp(-90f, 90f, t) : Mathf.Lerp(90f, 270f, t);
-        sunPivot.localRotation = Quaternion.Euler(sunRotation, 0f, sunTilt);
-
-        float colorT = isDay ? t : 1f - t;
-        directionalLight.color = Color.Lerp(nightColor, dayColor, colorT);
-        RenderSettings.ambientLight = Color.Lerp(ambientNightColor, ambientDayColor, colorT);
-    }
-
-    public void ForceDay() => StartDay();
-    public void ForceNight() => StartNight();
-    public bool IsDaytime() => isDay;
 }

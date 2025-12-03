@@ -26,6 +26,19 @@ public class WorldProgression : MonoBehaviour
     [Header("CutScene Settings")]
     public GameObject CutSceneBackground;
 
+    [Header("Objects to Control")]
+    public GameObject currentDidina;     // Hide immediately
+    public GameObject waitingDidina;     // Show while waiting
+    public GameObject Didina2Object;   // Show after delay
+    public GameObject currentMarian;     // Hide immediately
+    public GameObject waitingMarian;     // Show while waiting
+    public GameObject Marian2Object;   // Show after delay
+    public float delay = 3f;
+    public float delay2 = 3f;
+    float elapsed = 0f;
+    float elapsed2 = 0f;
+    private bool isWaiting = false;
+
 
     public GameObject AudioWorldChange;
     public TextMeshProUGUI CutSceneStoryPart1; // this is the starts of the story and you get off a bus
@@ -121,6 +134,8 @@ public class WorldProgression : MonoBehaviour
             return;
         }
         Instance = this;
+
+
     }
 
 
@@ -132,29 +147,6 @@ public class WorldProgression : MonoBehaviour
     private void Update()
     {
         // ===== DEBUG KEYS FOR TESTING REWARDS AND CUTSCENES =====
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Debug.Log("[DEBUG] Triggering WoodCuttingFinished reward manually.");
-            ApplyReward("WoodCuttingFinished");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Debug.Log("[DEBUG] Triggering EggCollectingFinished reward manually.");
-            ApplyReward("EggCollectingFinished");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Debug.Log("[DEBUG] Triggering WeedingFinished reward manually.");
-            ApplyReward("WeedingFinished");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            Debug.Log("[DEBUG] Triggering Basma reward manually (Tanti Didina unlock).");
-            ApplyReward("Basma");
-        }
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
@@ -320,30 +312,13 @@ public class WorldProgression : MonoBehaviour
         }
     }
 
-    private bool CheckTantiGetaCooldown(string rewardCode)
-    {
-        if (rewardCode == "Cozonac" || rewardCode == "DriedPlants" || rewardCode == "Basma")
-        {
-            if (!canGetTantiGetaReward)
-            {
-                ShowRewardMessage("Come back later!");
-                dialogueJustEnded = false;  // prevent dialogue from progressing
-                return false;
-            }
-        }
-
-        return true;
-    }
 
 
-
+   
     // Apply world changes based on a reward code
     public void ApplyReward(string rewardCode)
     {
-        // ----- CHECK COOLDOWN FIRST -----
-        if (!CheckTantiGetaCooldown(rewardCode))
-            return; // stop everything if on cooldown
-                    // --------------------------------
+       
 
         string rewardMessage = "";
         bool shouldPlayCutscene = false;
@@ -471,17 +446,19 @@ public class WorldProgression : MonoBehaviour
         Debug.Log("WORLD PROGRESSION STEP 2");
         //step2Changes.SetActive(true);
 
-        if (AudioWorldChange != null)
+        
+
+   
             AudioWorldChange.SetActive(true);
-        if (WorldChangePp1 != null)
+       
             WorldChangePp1.gameObject.SetActive(false);
-        if (WorldChangePp2 != null)
+      
             WorldChangePp2.gameObject.SetActive(true);
-        if (Snow != null)
+      
             Snow.gameObject.SetActive(false);
-        if (WorldChangeSnow2 != null)
+       
             WorldChangeSnow2.gameObject.SetActive(false);
-        if (WorldChangePlants2 != null)
+        
             WorldChangePlants2.gameObject.SetActive(true);
 
     }
@@ -501,8 +478,116 @@ public class WorldProgression : MonoBehaviour
         TantiDidina1.SetActive(false);
         TantiDidina2.SetActive(false);
         TantiDidina3.SetActive(true);
+        TantiIana1.SetActive(false);
+        TantiIana2.SetActive(false);
+        TantiIana3.SetActive(false);
 
 
+    }
+
+    public void StartProgressionDidina()
+    {
+        StartCoroutine(ProgressRoutineDidina());
+    }
+    public IEnumerator ProgressRoutineDidina() 
+    {
+        isWaiting = true;
+
+        // Hide current object immediately
+        if (currentDidina != null)
+            currentDidina.SetActive(false);
+
+        // Show waiting object
+        if (waitingDidina != null)
+            waitingDidina.SetActive(true);
+
+        while (elapsed < delay)
+        {
+            elapsed += Time.deltaTime;
+            Debug.Log(elapsed);
+            yield return null;
+        }
+
+        // Only proceed if we actually waited the full delay
+        if (elapsed >= delay)
+        {
+            // Hide waiting object
+            if (waitingDidina != null)
+            {
+                waitingDidina.SetActive(false);
+                Debug.Log($"{name}: waitingObject hidden");
+            }
+
+            // Show dialogue2 object
+            if (Didina2Object != null)
+            {
+                Didina2Object.SetActive(true);
+                Debug.Log($"{name}: dialogue2Object shown");
+            }
+            else
+            {
+                Debug.LogWarning($"{name}: dialogue2Object is null!");
+            }
+
+
+
+        }
+
+        isWaiting = false;
+    }
+
+
+
+    public void StartProgressionMarian()
+    {
+        StartCoroutine(ProgressRoutineMarian());
+    }
+    public IEnumerator ProgressRoutineMarian()
+    {
+        isWaiting = true;
+
+      
+        if (currentMarian != null)
+            currentMarian.SetActive(false);
+
+        // Show waiting object
+        if (waitingMarian != null)
+            waitingMarian.SetActive(true);
+
+        while (elapsed2 < delay2)
+        {
+            elapsed2 += Time.deltaTime;
+            Debug.Log(elapsed2);
+            yield return null;
+        }
+
+        // Only proceed if we actually waited the full delay
+        if (elapsed2 >= delay2)
+        {
+          
+            // Hide waiting object
+            if (waitingMarian != null)
+            {
+                waitingMarian.SetActive(false);
+                Debug.Log($"{name}: waitingObject hidden");
+            }
+
+            // Show dialogue2 object
+            if (Marian2Object != null)
+            {
+                Marian2Object.SetActive(true);
+                Debug.Log($"{name}: dialogue2Object shown");
+            }
+            else
+            {
+                Debug.LogWarning($"{name}: dialogue2Object is null!");
+            }
+
+
+
+        }
+
+        isWaiting = false;
     }
 
     private IEnumerator TantiGetaDelayedTransform(string rewardCode)
@@ -706,11 +791,7 @@ public class WorldProgression : MonoBehaviour
         if (FinalCutsceneTriggerLocation != null)
             FinalCutsceneTriggerLocation.SetActive(false);
 
-        Capra2.SetActive(true);
-        Capra1.SetActive(false);
-        CelebrationLighting.SetActive(true);
-        GlobalVolumeSomber.SetActive(false);
-        GlobalVolumeCelebration.SetActive(true);
+       
 
         StartCoroutine(FadeTextRoutine(CutSceneStoryPart4, finalCutsceneDuration));
     }
