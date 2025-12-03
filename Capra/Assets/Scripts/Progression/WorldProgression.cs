@@ -47,7 +47,7 @@ public class WorldProgression : MonoBehaviour
     public GameObject AudioPart2; //capra cutscene music 
 
     public GameObject CutSceneStoryPart4; // Before party cutscene you hear that Tanti Geta passed away, but people come and help
-    public GameObject AudioPart4;
+    public GameObject FinalCutsceneAudio;
 
     public GameObject CutSceneStoryPart5; // End Cutscene where capra comes back and leaves happy, knowing there will be a next year
     public GameObject AudioPart5;
@@ -280,8 +280,8 @@ public class WorldProgression : MonoBehaviour
             AudioWorldChange.SetActive(false);
 
 
-        if (AudioPart4 != null)
-            AudioPart4.SetActive(false);
+        if (FinalCutsceneAudio != null)
+            FinalCutsceneAudio.SetActive(false);
 
         // Enable player movement
         if (playerMovement != null)
@@ -782,8 +782,8 @@ public class WorldProgression : MonoBehaviour
         if (CutSceneStoryPart4 != null)
             CutSceneStoryPart4.SetActive(true);
 
-        if (AudioPart4 != null)
-            AudioPart4.SetActive(true);
+        if (FinalCutsceneAudio != null)
+            FinalCutsceneAudio.SetActive(true);
 
         StartCoroutine(FadeTextRoutine(CutSceneStoryPart4, finalCutsceneDuration));
 
