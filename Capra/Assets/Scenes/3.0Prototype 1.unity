@@ -119410,6 +119410,7 @@ MonoBehaviour:
   Capra2: {fileID: 3924364}
   ItemRewardText: {fileID: 1563162780}
   TantiDidinaWaiting: {fileID: 1522383433}
+  creditsSceneName: EndScene
   CutSceneBackground: {fileID: 1968559160}
   currentDidina: {fileID: 828752128}
   waitingDidina: {fileID: 1522383433}
@@ -119458,7 +119459,7 @@ MonoBehaviour:
   introDuration: 37
   capraDuration: 20
   tantiDidinaDuration: 20
-  finalCutsceneDuration: 90
+  finalCutsceneDuration: 20
   worldChangeDuration: 7
   rewardTextDuration: 2
 --- !u!4 &2043298188

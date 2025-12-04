@@ -23,6 +23,10 @@ public class WorldProgression : MonoBehaviour
     public TextMeshProUGUI ItemRewardText;
     [SerializeField] private GameObject TantiDidinaWaiting;
 
+
+    [SerializeField] private string creditsSceneName = "EndScene";
+    //private bool waitingForCredits = false;
+
     [Header("CutScene Settings")]
     public GameObject CutSceneBackground;
 
@@ -163,8 +167,21 @@ public class WorldProgression : MonoBehaviour
             introPlayed = true;  // mark it as played so it won’t replay
         }
 
+       
     }
 
+
+    private void LoadCreditsScene()
+    {
+        // Safety unlocks (optional)
+        if (playerMovement != null)
+            playerMovement.enabled = false;
+
+        if (vCamera != null)
+            vCamera.lockCamera = true;
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene(creditsSceneName);
+    }
 
     // ==========================
     // INTRO CUTSCENE LOGIC
@@ -245,7 +262,16 @@ public class WorldProgression : MonoBehaviour
             Debug.LogWarning($"[FadeTextRoutine] Unsupported element type: {element}");
         }
 
-        // Call universal end logic
+
+        // If this is the final cutscene, transition WHILE UI is still visible
+        if (element == CutSceneStoryPart4)
+        {
+            Debug.Log("Final cutscene ending  seamless load into EndScene...");
+            LoadCreditsScene();
+            yield break;     // IMPORTANT: prevents EndCutscene() from firing
+        }
+
+        // Normal cutscenes still end normally
         EndCutscene();
     }
 
