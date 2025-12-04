@@ -15,10 +15,10 @@ MonoBehaviour:
   UpdateFrequency: 0.01
   GameMode: 1
   MarkerPrefab: {fileID: 6229256527508535590, guid: 22f58613e70b4f944b9447892f34b727, type: 3}
-  MaxVisibleDistance: 50
-  MarkerWorldOffset: {x: 0, y: 1, z: 0}
+  MaxVisibleDistance: 30
+  MarkerWorldOffset: {x: 0, y: 2.5, z: 0}
   IgnoreZAxisForDistance2D: 1
-  UseOffScreenIndicators: 0
+  UseOffScreenIndicators: 1
   ScreenEdgeMargin: 40.2
   FlipOffScreenMarkerY: 1
   EnableDistanceScaling: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
   MaxScalingDistance: 200
   MinScaleFactor: 0.015
   DefaultScaleFactor: 0.383
-  DisplayDistanceText: 1
+  DisplayDistanceText: 0
   UnitSystem: 0
   DistanceDecimalPlaces: 0
   SuffixMeters: m

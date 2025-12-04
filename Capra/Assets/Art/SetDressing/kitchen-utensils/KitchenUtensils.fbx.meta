@@ -1,0 +1,252 @@
+fileFormatVersion: 2
+guid: 0e4e39a74e9b4f845b557f0ad86e7409
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cuttingboard_A_basecolor
+    second: {fileID: 2800000, guid: 56c9e745699f6004ea675cf034c73aa5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cuttingboard_A_normal
+    second: {fileID: 2800000, guid: 619dd02917b0395429921b0a5627a411, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Kitchen_A_Alpha
+    second: {fileID: 2800000, guid: 1e1777887be4c8444ae337460630e05f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Kitchen_A_Roughness
+    second: {fileID: 2800000, guid: 4bfdc8785b4a74b499493f6f94bc8232, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Kitchen_A_basecolor
+    second: {fileID: 2800000, guid: a7edd7d90c680af45bfa9a7e4f2c854c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Kitchen_A_normal
+    second: {fileID: 2800000, guid: f7d0cbde7e7561642879c57f9e3a0ed0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: KitchenMachinery_B_Metallic
+    second: {fileID: 2800000, guid: c4c7c46b72593dd4da34cc49d06effaf, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: KitchenMachinery_B_Roughness
+    second: {fileID: 2800000, guid: 073c9386d8e921b448384deb6dc94224, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: KitchenMachinery_B_basecolor
+    second: {fileID: 2800000, guid: 178237df1975c094f9e43597dd84f0f5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: KitchenMachinery_B_normal
+    second: {fileID: 2800000, guid: f853261a48c150f4c8eb232e73e1128e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Knives_A_Metallic
+    second: {fileID: 2800000, guid: f63c0292732b2fd44a4cae2cf5bb8c7d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Knives_A_Roughness
+    second: {fileID: 2800000, guid: d1566d9a708664b46b3eb47f107ae9b6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Knives_A_basecolor
+    second: {fileID: 2800000, guid: 381670c49a52b9b40a91d120d3418fbc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Knives_A_normal
+    second: {fileID: 2800000, guid: 7136363909f8ca341a73edf343c65752, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Pans_A_Metallic
+    second: {fileID: 2800000, guid: da558e98007599445a52bc2e8fbbb9d1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Pans_A_Roughness
+    second: {fileID: 2800000, guid: 831e429177e4a404d992ddb325b5b4dd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Pans_A_basecolor
+    second: {fileID: 2800000, guid: 4704c219d78ad7e47becd9d2950db2e2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Pans_A_normal
+    second: {fileID: 2800000, guid: f7bea4484774b364b952110e51b8c52c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Towels_A_Roughness
+    second: {fileID: 2800000, guid: 61f423696537d314fadde8185cc895dc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Towels_A_basecolor
+    second: {fileID: 2800000, guid: 77a72663c217d444e9a5955bc08c516d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Towels_A_normal
+    second: {fileID: 2800000, guid: 13cbcf7c80548a649b5d11cd641ef44e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Utensils_A_Metallic
+    second: {fileID: 2800000, guid: 2bcb0dda9a8894a4fbc94f2cf9f14dfd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Utensils_A_Roughness
+    second: {fileID: 2800000, guid: 4d840059abe025a449bd812223985e92, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Utensils_A_basecolor
+    second: {fileID: 2800000, guid: 8c0eadb84165eb046b2492dbd46300ff, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Utensils_A_normal
+    second: {fileID: 2800000, guid: d3982198a092f9b4baf59f3d714ed517, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Utensils_B_Metallic
+    second: {fileID: 2800000, guid: 954767a61e8537940bf6a7cda172827a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Utensils_B_Roughness
+    second: {fileID: 2800000, guid: 53be67079fd5dcf4ba3ba5f99deb9d4d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Utensils_B_basecolor
+    second: {fileID: 2800000, guid: d782e76165b78f44796b9d41434b4672, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Utensils_B_normal
+    second: {fileID: 2800000, guid: 528e7dd93078cd34ab42d1c37cc320aa, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
