@@ -1,0 +1,163 @@
+fileFormatVersion: 2
+guid: 14476462a626ebd4da2c71e83ff207fd
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: SausageBacon
+    100004: SausageChicken
+    100006: SausageHam001
+    100008: SausageHamStick
+    100010: SausageHamStick001
+    100012: SausageHamStickSlice
+    100014: SausageMeat007
+    100016: SausageSausage008
+    100018: SausageSausage1
+    100020: SausageSausage2
+    100022: SausageSausageBagel
+    100024: SausageSausageBagelRope
+    100026: SausageSausageStick
+    100028: SausageSausageStick001
+    100030: SausageSausageStickSlice
+    400000: //RootNode
+    400002: SausageBacon
+    400004: SausageChicken
+    400006: SausageHam001
+    400008: SausageHamStick
+    400010: SausageHamStick001
+    400012: SausageHamStickSlice
+    400014: SausageMeat007
+    400016: SausageSausage008
+    400018: SausageSausage1
+    400020: SausageSausage2
+    400022: SausageSausageBagel
+    400024: SausageSausageBagelRope
+    400026: SausageSausageStick
+    400028: SausageSausageStick001
+    400030: SausageSausageStickSlice
+    2100000: Sausage
+    2300000: SausageBacon
+    2300002: SausageChicken
+    2300004: SausageHam001
+    2300006: SausageHamStick
+    2300008: SausageHamStickSlice
+    2300010: SausageMeat007
+    2300012: SausageSausage008
+    2300014: SausageSausage1
+    2300016: SausageSausage2
+    2300018: SausageSausageBagel
+    2300020: SausageSausageBagelRope
+    2300022: SausageSausageStick
+    2300024: SausageSausageStick001
+    2300026: SausageSausageStickSlice
+    3300000: SausageBacon
+    3300002: SausageChicken
+    3300004: SausageHam001
+    3300006: SausageHamStick
+    3300008: SausageHamStickSlice
+    3300010: SausageMeat007
+    3300012: SausageSausage008
+    3300014: SausageSausage1
+    3300016: SausageSausage2
+    3300018: SausageSausageBagel
+    3300020: SausageSausageBagelRope
+    3300022: SausageSausageStick
+    3300024: SausageSausageStick001
+    3300026: SausageSausageStickSlice
+    4300000: SausageSausageBagel
+    4300002: SausageSausageBagelRope
+    4300004: SausageSausageStickSlice
+    4300006: SausageSausage2
+    4300008: SausageSausage1
+    4300010: SausageSausageStick
+    4300012: SausageHamStick
+    4300014: SausageHamStickSlice
+    4300016: SausageBacon
+    4300018: SausageChicken
+    4300020: SausageSausage008
+    4300022: SausageSausageStick001
+    4300024: SausageMeat007
+    4300026: SausageHam001
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
