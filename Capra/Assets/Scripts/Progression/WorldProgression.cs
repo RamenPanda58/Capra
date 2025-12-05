@@ -77,6 +77,8 @@ public class WorldProgression : MonoBehaviour
     public GameObject SomberPp;
     public GameObject Snow;
 
+    public GameObject DiaryThoughtsAudio;
+
     [Header("World Progression Steps")]
     public GameObject step1Changes;   // Things to enable at 2 letters
     public GameObject step2Changes;   // Things to enable at 4 letters
@@ -493,6 +495,8 @@ public class WorldProgression : MonoBehaviour
             WorldChangeSnow2.gameObject.SetActive(false);
         
             WorldChangePlants2.gameObject.SetActive(true);
+
+        DiaryThoughtsAudio.gameObject.SetActive(true);
 
     }
 
@@ -911,6 +915,17 @@ public class WorldProgression : MonoBehaviour
             vCamera.lockCamera = false;
 
         Debug.Log("[PagesBlownAway] Cutscene ended.");
+    }
+
+    public void SwitchTantiIanaTo3()
+    {
+        if (TantiIana2 != null)
+            TantiIana2.SetActive(false);
+
+        if (TantiIana3 != null)
+            TantiIana3.SetActive(true);
+
+        Debug.Log("[WorldProgression] TantiIana2 deactivated, TantiIana3 activated.");
     }
 
 }
