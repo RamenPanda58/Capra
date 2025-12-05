@@ -30,6 +30,13 @@ public class WorldProgression : MonoBehaviour
     [Header("CutScene Settings")]
     public GameObject CutSceneBackground;
 
+    [Header("Pages Blown Away Cutscene")]
+    public GameObject PagesBlownAwayCutscene;   // UI panel or cutscene background
+    public GameObject PagesBlownAwayAudio;     // AudioSource for cutscene audio
+    public GameObject DiaryPages;               // Pages visual object
+    public float PagesBlownAwayDuration = 5f;   // Total duration including fade
+
+
     [Header("Objects to Control")]
     public GameObject currentDidina;     // Hide immediately
     public GameObject waitingDidina;     // Show while waiting
@@ -822,5 +829,88 @@ public class WorldProgression : MonoBehaviour
         StartCoroutine(FadeTextRoutine(CutSceneStoryPart4, finalCutsceneDuration));
     }
 
+    public void PlayPagesBlownAwayCutscene()
+    {
+        Debug.Log("[PagesBlownAway] Triggered!");
+
+        // Disable player control
+        if (playerMovement != null)
+            playerMovement.enabled = false;
+
+        if (vCamera != null)
+            vCamera.lockCamera = true;
+
+        StartCoroutine(FadePagesBlownAwayRoutine());
+    }
+
+    private IEnumerator FadePagesBlownAwayRoutine()
+    {
+
+        if (TantiIana1 != null) TantiIana1.SetActive(false);
+        if (TantiIana2 != null) TantiIana2.SetActive(true);
+
+        // Activate objects
+        if (PagesBlownAwayCutscene != null)
+            PagesBlownAwayCutscene.SetActive(true);
+
+        if (PagesBlownAwayAudio != null)
+            PagesBlownAwayAudio.SetActive(true);
+
+        if (DiaryPages != null)
+            DiaryPages.SetActive(true);
+
+
+     
+
+        // Fade in (requires a CanvasGroup on PagesBlownAwayCutscene)
+        CanvasGroup cg = PagesBlownAwayCutscene?.GetComponent<CanvasGroup>();
+        if (cg != null)
+        {
+            cg.alpha = 0f;
+            float fadeDuration = 1f;
+            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+            {
+                cg.alpha = Mathf.Lerp(0f, 1f, t / fadeDuration);
+                yield return null;
+            }
+            cg.alpha = 1f;
+        }
+
+        // Wait for main duration minus fade in/out
+        float waitTime = Mathf.Max(PagesBlownAwayDuration - 2f, 0f);
+        yield return new WaitForSeconds(waitTime);
+
+        // Fade out
+        if (cg != null)
+        {
+            float fadeDuration = 1f;
+            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+            {
+                cg.alpha = Mathf.Lerp(1f, 0f, t / fadeDuration);
+                yield return null;
+            }
+            cg.alpha = 0f;
+        }
+
+        // Turn off objects
+        if (PagesBlownAwayCutscene != null)
+            PagesBlownAwayCutscene.SetActive(false);
+
+
+
+        if (PagesBlownAwayAudio != null)
+            PagesBlownAwayAudio.SetActive(false);
+
+      
+
+        // Re-enable player control
+        if (playerMovement != null)
+            playerMovement.enabled = true;
+
+        if (vCamera != null)
+            vCamera.lockCamera = false;
+
+        Debug.Log("[PagesBlownAway] Cutscene ended.");
+    }
 
 }
