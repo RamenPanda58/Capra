@@ -6759,8 +6759,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100443780}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 778.6668, y: 20.392748, z: 1330.3541}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -53.47052, y: -2.8999863, z: 7.1743164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6783,7 +6783,7 @@ Transform:
   - {fileID: 1166219980}
   - {fileID: 1050221522}
   - {fileID: 689730104}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 840271741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &101833114
 GameObject:
@@ -7844,7 +7844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &110405074
 Transform:
   m_ObjectHideFlags: 0
@@ -50796,7 +50796,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &783729396
 Transform:
   m_ObjectHideFlags: 0
@@ -54215,6 +54215,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840013529}
   m_Mesh: {fileID: 2755085477392647438, guid: cb68f19949dfdd54396755095f3ccc74, type: 3}
+--- !u!1 &840271740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 840271741}
+  m_Layer: 0
+  m_Name: WorldchangeSnow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &840271741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840271740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 832.1373, y: 23.292734, z: 1323.1798}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 100443781}
+  - {fileID: 1943537452}
+  - {fileID: 1710574974}
+  - {fileID: 1756770982}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &840333378
 GameObject:
   m_ObjectHideFlags: 0
@@ -57143,7 +57178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &890541351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69536,7 +69571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1133402986
 Transform:
   m_ObjectHideFlags: 0
@@ -101339,8 +101374,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710574973}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 832.1373, y: 23.292734, z: 1323.1798}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -101402,7 +101437,7 @@ Transform:
   - {fileID: 290557415}
   - {fileID: 143108615}
   - {fileID: 1600513346}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 840271741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1711145627
 PrefabInstance:
@@ -101616,7 +101651,7 @@ GameObject:
   - component: {fileID: 1712423742}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103533,8 +103568,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756770981}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 832.1373, y: 23.292734, z: 1323.1798}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -103592,7 +103627,7 @@ Transform:
   - {fileID: 1804337922}
   - {fileID: 1138512288}
   - {fileID: 1231067830}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 840271741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1757066407 stripped
 Transform:
@@ -112961,8 +112996,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943537451}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 778.6668, y: 20.392748, z: 1330.3541}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -53.47052, y: -2.8999863, z: 7.1743164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -112977,7 +113012,7 @@ Transform:
   - {fileID: 2045452054}
   - {fileID: 318860555}
   - {fileID: 1830068131}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 840271741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1945347803
 PrefabInstance:
@@ -122270,14 +122305,14 @@ MonoBehaviour:
   waitBeforeReward: 0
   waitBeforeCutscene: 1.5
   CelebrationNoteUI: {fileID: 1698837177}
-  WorldChangePp1: {fileID: 110405073}
-  WorldChangePp2: {fileID: 783729395}
-  WorldChangePp3: {fileID: 1133402985}
+  WorldChangePp1: {fileID: 110405075}
+  WorldChangePp2: {fileID: 783729397}
+  WorldChangePp3: {fileID: 1133402987}
   WorldChangeSnow: {fileID: 100443780}
   WorldChangeSnow2: {fileID: 1943537451}
   WorldChangePlants1: {fileID: 1710574973}
   WorldChangePlants2: {fileID: 1756770981}
-  SomberPp: {fileID: 1717955414}
+  SomberPp: {fileID: 1717955415}
   Snow: {fileID: 2012614764}
   DiaryThoughtsAudio: {fileID: 1946762711}
   step1Changes: {fileID: 0}
@@ -122292,14 +122327,22 @@ MonoBehaviour:
   cutsceneDelay: 1
   FinalCutsceneTriggerLocation: {fileID: 1408021969}
   CelebrationLighting: {fileID: 1300622233}
-  GlobalVolumeSomber: {fileID: 1717955414}
-  GlobalVolumeCelebration: {fileID: 890541350}
+  MainGlobalVolumeObject: {fileID: 1717955415}
+  GlobalVolumeSomber: {fileID: 1717955415}
+  GlobalVolumeCelebration: {fileID: 890541351}
+  profilesToPrewarm:
+  - {fileID: 11400000, guid: 91ca38301fefa29418effad10e9ed202, type: 2}
+  - {fileID: 11400000, guid: 7409318b74066a74988fb7f0db37959b, type: 2}
+  - {fileID: 11400000, guid: 6e7e01a7b4e917d48af3a44ce13fca3c, type: 2}
+  - {fileID: 11400000, guid: dce3d5751a03dd34c9d688207b84ae68, type: 2}
+  - {fileID: 11400000, guid: 974900ee9c01dbf479ff99193613ffd4, type: 2}
   introDuration: 47
   capraDuration: 20
   tantiDidinaDuration: 20
   finalCutsceneDuration: 28
   worldChangeDuration: 7
   rewardTextDuration: 2
+  objectsToPrewarm: []
 --- !u!4 &2043298188
 Transform:
   m_ObjectHideFlags: 0
@@ -135002,10 +135045,7 @@ SceneRoots:
   - {fileID: 474785367}
   - {fileID: 789348309}
   - {fileID: 642935545}
-  - {fileID: 100443781}
-  - {fileID: 1943537452}
-  - {fileID: 1710574974}
-  - {fileID: 1756770982}
+  - {fileID: 840271741}
   - {fileID: 2131938717}
   - {fileID: 1408021971}
   - {fileID: 678771455}

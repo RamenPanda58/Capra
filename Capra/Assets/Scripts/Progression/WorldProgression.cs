@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class WorldProgression : MonoBehaviour
 {
@@ -67,14 +69,14 @@ public class WorldProgression : MonoBehaviour
     public float waitBeforeReward = 5f;
     public float waitBeforeCutscene = 5f;
     public GameObject CelebrationNoteUI;
-    public GameObject WorldChangePp1;
-    public GameObject WorldChangePp2;
-    public GameObject WorldChangePp3;
+    public Volume WorldChangePp1;
+    public Volume WorldChangePp2;
+    public Volume WorldChangePp3;
     public GameObject WorldChangeSnow;
     public GameObject WorldChangeSnow2;
     public GameObject WorldChangePlants1;
     public GameObject WorldChangePlants2;
-    public GameObject SomberPp;
+    public Volume SomberPp;
     public GameObject Snow;
 
     public GameObject DiaryThoughtsAudio;
@@ -124,8 +126,11 @@ public class WorldProgression : MonoBehaviour
     private bool tantiIanaPassed = false;
 
     public GameObject CelebrationLighting;
-    public GameObject GlobalVolumeSomber;
-    public GameObject GlobalVolumeCelebration;
+    public Volume MainGlobalVolumeObject;
+    public Volume GlobalVolumeSomber;
+    public Volume GlobalVolumeCelebration;
+
+    [SerializeField] private VolumeProfile[] profilesToPrewarm;
 
     [Header("Cutscene Durations")]
     public float introDuration = 5f;     // how long the intro lasts
@@ -134,10 +139,10 @@ public class WorldProgression : MonoBehaviour
     public float finalCutsceneDuration = 8f;
     public float worldChangeDuration = 6f;
 
-
-
     [Header("UI Settings")]
     [SerializeField] private float rewardTextDuration = 3f; // how long the reward text stays on screen
+
+    [SerializeField] private List<GameObject> objectsToPrewarm = new();
 
     private void Awake()
     {
@@ -147,16 +152,32 @@ public class WorldProgression : MonoBehaviour
             return;
         }
         Instance = this;
-
-
+        StartCoroutine(FadeVolume(WorldChangePp1,0,3));
+        StartCoroutine(FadeVolume(WorldChangePp2,0,3));
+        StartCoroutine(FadeVolume(WorldChangePp3,0,3));
+        StartCoroutine(FadeVolume(GlobalVolumeCelebration,0,3));
     }
-
 
     private void Start()
     {
         PlayIntroCutscene();
     }
+    public IEnumerator FadeVolume(Volume volume, float targetWeight, float duration)
+    {
+        if (volume == null) yield break;
 
+        float startWeight = volume.weight;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            volume.weight = Mathf.Lerp(startWeight, targetWeight, elapsed / duration);
+            yield return null;
+        }
+
+        volume.weight = targetWeight;
+    }
     private void Update()
     {
         // ===== DEBUG KEYS FOR TESTING REWARDS AND CUTSCENES =====
@@ -178,7 +199,6 @@ public class WorldProgression : MonoBehaviour
 
        
     }
-
 
     private void LoadCreditsScene()
     {
@@ -347,14 +367,9 @@ public class WorldProgression : MonoBehaviour
         }
     }
 
-
-
-   
     // Apply world changes based on a reward code
     public void ApplyReward(string rewardCode)
     {
-       
-
         string rewardMessage = "";
         bool shouldPlayCutscene = false;
         bool shouldWaitForDialogue = false;
@@ -400,10 +415,6 @@ public class WorldProgression : MonoBehaviour
 
                 StartCoroutine(TantiGetaDelayedTransform(rewardCode));
                 break;
-                // Start cooldown / transformation coroutine
-               
-             
-
         }
 
 
@@ -454,6 +465,23 @@ public class WorldProgression : MonoBehaviour
         }
     }
 
+    IEnumerator BlendVolume(Volume old, Volume next, float duration)
+    {
+        if (next == null || old == null)
+            yield break;
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            next.weight = Mathf.Clamp01(elapsed / duration);
+            yield return null;
+        }
+
+        old.weight = 0f;
+        next.weight = 1f;
+    }
+
     private void TriggerStep1()
     {
         Debug.Log("WORLD PROGRESSION STEP 1");
@@ -462,9 +490,7 @@ public class WorldProgression : MonoBehaviour
         if (AudioWorldChange != null)
             AudioWorldChange.SetActive(true);
         if (SomberPp != null)
-            SomberPp.gameObject.SetActive(false);
-        if (WorldChangePp1 != null)
-            WorldChangePp1.gameObject.SetActive(true);
+            StartCoroutine(BlendVolume(SomberPp, WorldChangePp1, 1));
         if (WorldChangeSnow != null)
             WorldChangeSnow.gameObject.SetActive(false);
         if (WorldChangeSnow2 != null)
@@ -480,17 +506,12 @@ public class WorldProgression : MonoBehaviour
     {
         Debug.Log("WORLD PROGRESSION STEP 2");
         //step2Changes.SetActive(true);
-
-        
-
    
             AudioWorldChange.SetActive(true);
-       
-            WorldChangePp1.gameObject.SetActive(false);
-      
-            WorldChangePp2.gameObject.SetActive(true);
-      
-            Snow.gameObject.SetActive(false);
+
+        StartCoroutine(BlendVolume(WorldChangePp1, WorldChangePp2, 1));
+
+        Snow.gameObject.SetActive(false);
        
             WorldChangeSnow2.gameObject.SetActive(false);
         
@@ -507,10 +528,8 @@ public class WorldProgression : MonoBehaviour
 
         if (AudioWorldChange != null)
             AudioWorldChange.SetActive(true);
-        if (WorldChangePp2 != null)
-            WorldChangePp2.gameObject.SetActive(false);
-        if (WorldChangePp3 != null)
-            WorldChangePp3.gameObject.SetActive(true);
+
+        StartCoroutine(BlendVolume(WorldChangePp2, WorldChangePp3, 1));
 
         TantiDidina1.SetActive(false);
         TantiDidina2.SetActive(false);
@@ -863,8 +882,6 @@ public class WorldProgression : MonoBehaviour
         if (DiaryPages != null)
             DiaryPages.SetActive(true);
 
-
-     
 
         // Fade in (requires a CanvasGroup on PagesBlownAwayCutscene)
         CanvasGroup cg = PagesBlownAwayCutscene?.GetComponent<CanvasGroup>();
