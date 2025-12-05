@@ -15305,15 +15305,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15294118, g: 0.12941177, b: 0.1764706, a: 1}
+  m_Color: {r: 0.15723258, g: 0.1399271, b: 0.1399271, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f7762de69a161004585c670442e30930, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -19008,7 +19008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[0].sentence
@@ -19018,12 +19018,13 @@ PrefabInstance:
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[1].sentence
       value: "I try to keep working. Mmmm\u2026 if you can call it \u2018work.\u2019
-        My eyes do their own thing these days."
+        My eyes do their own thing these days. Sometimes I paint an angel, sometimes
+        I just paint a blob and hope heaven can laugh at it."
       objectReference: {fileID: 0}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[2].sentence
-      value: Sometimes I paint an angel, sometimes I just paint a blob and hope heaven
-        can laugh at it.
+      value: This is wood from their garden, the one that got demolished. I thought
+        it a shame to let it rot there.
       objectReference: {fileID: 0}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[3].sentence
@@ -19037,15 +19038,15 @@ PrefabInstance:
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[0].sentenceSound
       value: 
-      objectReference: {fileID: 8300000, guid: e0790893f57296a4bb14a5438ea56ee3, type: 3}
+      objectReference: {fileID: 8300000, guid: 1cfeb9e08e99b684a9a88a0bb87bc1e6, type: 3}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[1].sentenceSound
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: d28631e5e5ccdae4f9457bed57e6e904, type: 3}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[2].sentenceSound
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 689272de99cb488478d6ea4d537abcb3, type: 3}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[0].dialogueCharacter
       value: 
@@ -27098,7 +27099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[0].sentence
@@ -27106,17 +27107,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[1].sentence
-      value: 'There was a time when they asked me to paint entire churches. Big walls,
-        high ceilings. Boys helped me with the ladders. '
+      value: "There was a time when they asked me to paint entire churches. Big walls,
+        high ceilings. Boys helped me with the ladders. Now people don\u2019t build
+        churches anymore. They go to the city for their souls, I guess."
       objectReference: {fileID: 0}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[2].sentence
-      value: "Now people don\u2019t build churches anymore. They go to the city for
-        their souls, I guess."
+      value: You can have this painting, I don't have many people to give them to.
       objectReference: {fileID: 0}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[3].sentence
-      value: You can have this painting, I don't have many people to give them to.
+      value: "I\u2019ve been asked why I don\u2019t leave the village. I don't! Because
+        someone has to keep listening to stories found in the landscape\u2026If I
+        leave\u2026 who will be left to read them aloud?"
       objectReference: {fileID: 0}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[4].sentence
@@ -27127,15 +27130,19 @@ PrefabInstance:
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[0].sentenceSound
       value: 
-      objectReference: {fileID: 8300000, guid: e0790893f57296a4bb14a5438ea56ee3, type: 3}
+      objectReference: {fileID: 8300000, guid: 48899ead0e9379a469328f3c7ea31dc4, type: 3}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[1].sentenceSound
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 528376d0a4d965e47b89af658d493ada, type: 3}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[2].sentenceSound
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 61c663cba24ae474a83061c68672152b, type: 3}
+    - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
+      propertyPath: sentences.Array.data[3].sentenceSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5dde8bc3173f84c4b8613281546ff7a1, type: 3}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[0].dialogueCharacter
       value: 
@@ -94995,7 +95002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1579752407
 RectTransform:
   m_ObjectHideFlags: 0
