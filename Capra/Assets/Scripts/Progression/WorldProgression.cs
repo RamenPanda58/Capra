@@ -144,6 +144,10 @@ public class WorldProgression : MonoBehaviour
 
     [SerializeField] private List<GameObject> objectsToPrewarm = new();
 
+    public GameObject RereadInfo;
+    public GameObject EndQuestInfo;
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -537,6 +541,7 @@ public class WorldProgression : MonoBehaviour
         TantiIana1.SetActive(false);
         TantiIana2.SetActive(false);
         TantiIana3.SetActive(false);
+        EndQuestInfo.SetActive(true);
 
 
     }
@@ -882,6 +887,9 @@ public class WorldProgression : MonoBehaviour
         if (DiaryPages != null)
             DiaryPages.SetActive(true);
 
+        if (RereadInfo != null)
+            RereadInfo.SetActive(true);
+
 
         // Fade in (requires a CanvasGroup on PagesBlownAwayCutscene)
         CanvasGroup cg = PagesBlownAwayCutscene?.GetComponent<CanvasGroup>();
@@ -943,6 +951,12 @@ public class WorldProgression : MonoBehaviour
             TantiIana3.SetActive(true);
 
         Debug.Log("[WorldProgression] TantiIana2 deactivated, TantiIana3 activated.");
+    }
+
+    public void DisableEndQuestInfo()
+    {
+        if (EndQuestInfo != null)
+            EndQuestInfo.SetActive(false);
     }
 
 }
