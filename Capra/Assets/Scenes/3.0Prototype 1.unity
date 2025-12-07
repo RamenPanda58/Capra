@@ -6603,9 +6603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: Press E to collect, R to read and Esc to close
-  letterText: 
   letterUIPanel: {fileID: 352152834}
-  uiText: {fileID: 840934123}
   fadeDuration: 0.3
 --- !u!1 &98483562
 GameObject:
@@ -6785,6 +6783,11 @@ Transform:
   - {fileID: 689730104}
   m_Father: {fileID: 840271741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &101380094 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4425428723088313499, guid: fc9b148a2950aaf4cba8422632222c5d, type: 3}
+  m_PrefabInstance: {fileID: 1829367764}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &101833114
 GameObject:
   m_ObjectHideFlags: 0
@@ -24551,9 +24554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: Press E to collect, R to read and Esc to close
-  letterText: 
   letterUIPanel: {fileID: 357436868}
-  uiText: {fileID: 840934123}
   fadeDuration: 0.3
 --- !u!1 &433488057
 GameObject:
@@ -37441,11 +37442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: Press E to collect, R to read and Esc to close
-  letterText: '
-
-'
   letterUIPanel: {fileID: 854856437}
-  uiText: {fileID: 840934123}
   fadeDuration: 0.3
 --- !u!1 &554107449
 GameObject:
@@ -68137,9 +68134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: Press E to collect, R to read and Esc to close
-  letterText: 
   letterUIPanel: {fileID: 1497214200}
-  uiText: {fileID: 840934123}
   fadeDuration: 0.3
 --- !u!1001 &1108959353
 PrefabInstance:
@@ -85276,9 +85271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: Press E to collect, R to read and Esc to close
-  letterText: 
   letterUIPanel: {fileID: 1400556724}
-  uiText: {fileID: 840934123}
   fadeDuration: 0.3
 --- !u!4 &1393130217 stripped
 Transform:
@@ -94649,9 +94642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: Press E to collect, R to read and Esc to close
-  letterText: 
   letterUIPanel: {fileID: 1205612159}
-  uiText: {fileID: 840934123}
   fadeDuration: 0.3
 --- !u!1001 &1576107472
 PrefabInstance:
@@ -103063,7 +103054,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 656490300, guid: fc9b148a2950aaf4cba8422632222c5d, type: 3}
   m_PrefabInstance: {fileID: 1829367764}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 101380094}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19c789670a80b704eba4dfebed94a111, type: 3}
@@ -105896,9 +105887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: Press E to collect, R to read and Esc to close
-  letterText: 
   letterUIPanel: {fileID: 1302151192}
-  uiText: {fileID: 840934123}
   fadeDuration: 0.3
 --- !u!1 &1819760655
 GameObject:
@@ -106572,7 +106561,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4425428723088313499, guid: fc9b148a2950aaf4cba8422632222c5d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1969264632}
+    - targetCorrespondingSourceObject: {fileID: 4425428723088313499, guid: fc9b148a2950aaf4cba8422632222c5d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1969264633}
   m_SourcePrefab: {fileID: 100100000, guid: fc9b148a2950aaf4cba8422632222c5d, type: 3}
 --- !u!1 &1829868454
 GameObject:
@@ -114491,6 +114486,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4425428723088313501, guid: fc9b148a2950aaf4cba8422632222c5d, type: 3}
   m_PrefabInstance: {fileID: 1829367764}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1969264632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101380094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25765ecf836f5c24f897d0e184a3e1dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1969264633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101380094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841f0fcc63e00154a95b7b9e9182596b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hotbarSize: 7
 --- !u!1 &1973319306
 GameObject:
   m_ObjectHideFlags: 0
@@ -127278,7 +127298,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.0062978063, y: 0.03914206}
   m_AnchorMax: {x: 1, y: 0.2042869}
-  m_AnchoredPosition: {x: 538, y: -7.000061}
+  m_AnchoredPosition: {x: 538, y: -7}
   m_SizeDelta: {x: -1118.4598, y: 13.269867}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2144492387

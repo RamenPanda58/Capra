@@ -20,6 +20,7 @@ public class PlayerInteractor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && currentReadable != null)
         {
             currentReadable.Close();
+            currentReadable = null;
         }
     }
 
@@ -38,8 +39,5 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (other.TryGetComponent(out Interactable interactable) && interactable == currentTarget)
             currentTarget = null;
-
-        if (other.TryGetComponent(out IReadable readable) && readable == currentReadable)
-            currentReadable = null;
     }
 }

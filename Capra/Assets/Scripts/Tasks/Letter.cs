@@ -4,11 +4,7 @@ using UnityEngine;
 public class Letter : Interactable, IReadable
 {
     [Header("Letter Content")]
-    [TextArea]
-    public string letterText;
-
     public GameObject letterUIPanel;
-    public TextMeshProUGUI uiText;
 
     [Header("Interaction Prompt Settings")]
     [SerializeField] private float fadeDuration = 0.3f;
@@ -28,22 +24,23 @@ public class Letter : Interactable, IReadable
     public override void Interact()
     {
         LetterManager.Instance.OnLetterCollected();
-
         InteractionPromptManager.Instance.Hide(fadeDuration);
 
-        // Close UI if open
-        Close();
+        // Add to PlayerInventory (your current system)
+        PlayerInventory.Instance.AddItem(this.name, 1);
 
-        // Destroy this letter object in the world
+        // Add to hotbar (new system)
+        HotbarInventory.Instance.AddLetter(new LetterData { text = letterUIPanel });
+
+        Close();
         Destroy(gameObject);
     }
+
 
     public void Read()
     {
         // When pressing R
         letterUIPanel.SetActive(true);
-        uiText.enabled = true;
-        uiText.text = letterText;
     }
 
     public void Close()
@@ -51,7 +48,10 @@ public class Letter : Interactable, IReadable
         // When pressing Escape
         if (letterUIPanel != null)
             letterUIPanel.SetActive(false);
-
-        uiText.enabled = false;
     }
+}
+
+public class LetterData
+{
+    public GameObject text;
 }

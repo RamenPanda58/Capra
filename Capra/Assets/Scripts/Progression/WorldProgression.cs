@@ -182,7 +182,7 @@ public class WorldProgression : MonoBehaviour
     {
         // ===== DEBUG KEYS FOR TESTING REWARDS AND CUTSCENES =====
 
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             Debug.Log("[DEBUG] Triggering Final Cutscene manually.");
             TriggerFinalCutscene();
