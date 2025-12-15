@@ -463,7 +463,7 @@ public class WorldProgression : MonoBehaviour
                 TriggerStep2();
                 break;
 
-            case 6:
+            case 7:
                 TriggerStep3();
                 break;
         }
