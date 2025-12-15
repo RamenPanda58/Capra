@@ -24769,7 +24769,7 @@ PrefabInstance:
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[2].sentenceSound
       value: 
-      objectReference: {fileID: 8300000, guid: 66a05d053a8bac040ab1476493721010, type: 3}
+      objectReference: {fileID: 8300000, guid: 73683eb198485104b84906881156648e, type: 3}
     - target: {fileID: 8557568673631317014, guid: cc0b3ff4467379548b7df5f7e83dd6a2, type: 3}
       propertyPath: sentences.Array.data[0].dialogueCharacter
       value: 
