@@ -1,11 +1,11 @@
 using UnityEngine;
 using TMPro;
 
-public class DayNightCycle : MonoBehaviour
+public class StaticTimeOfDay : MonoBehaviour
 {
-    [Header("Time of Day (0–24 hours)")]
+    [Header("Time of Day (Manual Slider Only)")]
     [Range(0f, 24f)]
-    public float timeOfDay = 12f;   // Controlled by slider
+    public float timeOfDay = 12f;
 
     [Header("Sun Settings")]
     public Transform sunPivot;
@@ -14,23 +14,24 @@ public class DayNightCycle : MonoBehaviour
     public Color nightColor = new Color(0.2f, 0.3f, 0.5f);
     public float sunTilt = 23.5f;
 
-    [Header("Ambient Light Settings")]
+    [Header("Ambient Light")]
     public Color ambientDayColor = Color.white;
     public Color ambientNightColor = new Color(0.1f, 0.1f, 0.2f);
 
-    [Header("Villager Settings (optional)")]
-    public GameObject villagersObject;
-    public float villagerStartHour = 6.5f;
-    public float villagerEndHour = 20f;
-
-    [Header("UI Clock (optional)")]
+    [Header("UI Clock (Optional)")]
     public TMP_Text timeText;
+
+    private float lastTime = -1f;
 
     void Update()
     {
-        UpdateLighting();
-    
-        UpdateClockUI();
+        // Only update lighting when slider value changes
+        if (!Mathf.Approximately(timeOfDay, lastTime))
+        {
+            UpdateLighting();
+            UpdateClockUI();
+            lastTime = timeOfDay;
+        }
     }
 
     private void UpdateLighting()
@@ -46,21 +47,16 @@ public class DayNightCycle : MonoBehaviour
         if (directionalLight != null)
             directionalLight.color = Color.Lerp(nightColor, dayColor, lightT);
 
-        RenderSettings.ambientLight = Color.Lerp(ambientNightColor, ambientDayColor, lightT);
+        RenderSettings.ambientLight =
+            Color.Lerp(ambientNightColor, ambientDayColor, lightT);
     }
-
-   
 
     private void UpdateClockUI()
     {
-        if (timeText != null)
-            timeText.text = FormatTime(timeOfDay);
-    }
+        if (timeText == null) return;
 
-    private string FormatTime(float hour)
-    {
-        int h = Mathf.FloorToInt(hour);
-        int m = Mathf.FloorToInt((hour - h) * 60f);
-        return $"{h:00}:{m:00}";
+        int h = Mathf.FloorToInt(timeOfDay);
+        int m = Mathf.FloorToInt((timeOfDay - h) * 60f);
+        timeText.text = $"{h:00}:{m:00}";
     }
 }

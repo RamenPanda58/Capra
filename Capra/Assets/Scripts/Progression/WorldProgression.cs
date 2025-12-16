@@ -166,6 +166,7 @@ public class WorldProgression : MonoBehaviour
     private void Start()
     {
         PlayIntroCutscene();
+        Cursor.visible = false;
     }
     public IEnumerator FadeVolume(Volume volume, float targetWeight, float duration)
     {
