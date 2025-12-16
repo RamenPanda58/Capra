@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -53,6 +54,17 @@ public class WorldProgression : MonoBehaviour
     float elapsed2 = 0f;
     private bool isWaiting = false;
 
+
+    [Header("Gifts")]
+    public GameObject Curtain;
+    public GameObject Icoana;
+    public GameObject Pie;
+    public GameObject MilkCan;
+
+    public GameObject PopUpCurtain;
+    public GameObject PopUpIcoana;
+    public GameObject PopUpPie;
+    public GameObject PopUpMilkCan;
 
     public GameObject AudioWorldChange;
     public TextMeshProUGUI CutSceneStoryPart1; // this is the starts of the story and you get off a bus
@@ -564,6 +576,12 @@ public class WorldProgression : MonoBehaviour
         if (waitingDidina != null)
             waitingDidina.SetActive(true);
 
+        if (Pie != null)
+            Pie.SetActive(true);
+
+        if (PopUpPie != null)
+            StartCoroutine(HideAfterDelay(PopUpPie, 3f));
+
         while (elapsed < delay)
         {
             elapsed += Time.deltaTime;
@@ -616,6 +634,13 @@ public class WorldProgression : MonoBehaviour
         // Show waiting object
         if (waitingMarian != null)
             waitingMarian.SetActive(true);
+
+        if (Curtain != null)
+            Curtain.SetActive(true);
+
+        if (PopUpCurtain != null)
+            StartCoroutine(HideAfterDelay(PopUpCurtain, 3f));
+
 
         while (elapsed2 < delay2)
         {
@@ -719,6 +744,31 @@ public class WorldProgression : MonoBehaviour
             }
         }
     }
+
+
+    public void NeneaMarianGift2()
+    {
+        // Activate the Icoana gift in the world
+        if (Icoana != null)
+            Icoana.SetActive(true);
+
+        // Show popup and auto-hide it after 3 seconds
+        if (PopUpIcoana != null)
+            StartCoroutine(HideAfterDelay(PopUpIcoana, 3f));
+    }
+
+
+    public void TantiDidinaGift2()
+    {
+        // Activate the Milk Can gift in the world
+        if (MilkCan != null)
+            MilkCan.SetActive(true);
+
+        // Show popup and auto-hide it after 3 seconds
+        if (PopUpMilkCan != null)
+            StartCoroutine(HideAfterDelay(PopUpMilkCan, 3f));
+    }
+
 
 
     private IEnumerator TantiGetaCooldown()
@@ -957,6 +1007,16 @@ public class WorldProgression : MonoBehaviour
 
         Debug.Log("[WorldProgression] TantiIana2 deactivated, TantiIana3 activated.");
     }
+
+    private IEnumerator HideAfterDelay(GameObject obj, float delay)
+    {
+        if (obj == null) yield break;
+
+        obj.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        obj.SetActive(false);
+    }
+
 
     public void DisableEndQuestInfo()
     {
