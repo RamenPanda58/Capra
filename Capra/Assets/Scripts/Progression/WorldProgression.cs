@@ -37,6 +37,7 @@ public class WorldProgression : MonoBehaviour
     public GameObject PagesBlownAwayAudio;     // AudioSource for cutscene audio
     public GameObject DiaryPages;               // Pages visual object
     public float PagesBlownAwayDuration = 5f;   // Total duration including fade
+    public GameObject InventoryUi; 
 
 
     [Header("Objects to Control")]
@@ -886,6 +887,9 @@ public class WorldProgression : MonoBehaviour
 
         if (DiaryPages != null)
             DiaryPages.SetActive(true);
+
+        if (InventoryUi != null)
+            InventoryUi.SetActive(true);
 
         if (RereadInfo != null)
             RereadInfo.SetActive(true);
